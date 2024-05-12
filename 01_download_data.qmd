@@ -1,0 +1,43 @@
+---
+title: 01 Downloading data
+date: 2024-05-12
+---
+
+Loading required packages
+
+```{r}
+packages <- c("moments", "quantmod", "xts")
+
+for (package in packages) {
+  if (!require(package, character.only = TRUE)) {
+    install.packages(package)
+    library(package, character.only = TRUE)
+  }
+}
+```
+
+Downloading S&P500 data
+
+```{r}
+start_date <- "2000-01-01"
+end_date <- "2019-12-31"
+
+sp500 <- getSymbols("^GSPC",
+                    from = start_date,
+                    to = end_date,
+                    env = NULL)
+
+sp500_prices <- sp500$GSPC.Adjusted
+sp500_log_returns <- log(sp500$GSPC.Adjusted / lag(sp500$GSPC.Adjusted))
+```
+
+**TODO: Calculate summary statistics from the paper, create plots from the paper**
+
+Saving data and deleting unnecessary objects
+
+```{r}
+saveRDS(sp500_prices,
+        file = "input/sp500_prices.rds")
+
+rm(list = ls())
+```

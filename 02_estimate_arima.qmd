@@ -1,0 +1,38 @@
+---
+title: 02 Estimating ARIMA models (base case)
+date: 2024-05-12
+---
+
+Loading required packages
+
+```{r}
+packages <- c("quantmod", "xts")
+
+for (package in packages) {
+  if (!require(package, character.only = TRUE)) {
+    install.packages(package)
+    library(package, character.only = TRUE)
+  }
+}
+```
+
+Loading S&P500 price data
+
+```{r}
+sp500_prices <- readRDS("input/sp500_prices.rds")
+```
+
+Loading functions used for estimation and forecasting of ARIMA models
+
+```{r}
+source("functions/arima_models.R")
+```
+
+Estimating ARIMA forecasts for the base case scenario
+
+```{r}
+arima_forecasts <- arima_rolling_forecast(sp500_prices,
+                                          estimation_start_date = "2005-12-20",
+                                          estimation_end_date = "2006-01-20")
+```
+
