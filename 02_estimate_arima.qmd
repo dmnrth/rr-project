@@ -33,7 +33,7 @@ Estimating ARIMA forecasts for the base case scenario
 ```{r}
 arima_forecasts <- arima_rolling_forecast(sp500_prices,
                                           estimation_start_date = "2005-12-20", # 2005-12-20
-                                          estimation_end_date = "2006-01-20") # 2019-12-31
+                                          estimation_end_date = "2019-12-31") # 2019-12-31
 ```
 
 Estimating ARIMA-GARCH forecasts for the base case scenario
@@ -41,5 +41,5 @@ Estimating ARIMA-GARCH forecasts for the base case scenario
 ```{r}
 arima_garch_forecasts <- arima_garch_rolling_forecast(sp500_prices,
                                                       estimation_start_date = "2005-12-20", # 2005-12-20
-                                                      estimation_end_date = "2006-01-20") # 2019-12-31
+                                                      estimation_end_date = "2019-12-31") # 2019-12-31
 ```

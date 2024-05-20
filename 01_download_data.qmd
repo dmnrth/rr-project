@@ -20,7 +20,7 @@ Downloading S&P500 data
 
 ```{r}
 start_date <- "2000-01-01"
-end_date <- "2019-12-31"
+end_date <- "2020-01-02"
 
 sp500 <- getSymbols("^GSPC",
                     from = start_date,

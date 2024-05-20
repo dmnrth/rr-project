@@ -17,10 +17,11 @@ fit_best_arima <- function(df,
                            max_p = 5,
                            max_q = 5,
                            max_iterations = 500) {
-  p_orders <- 0:max_p
-  q_orders <- 0:max_q
   
   # Create order search space (excluding (0, 1, 0))
+  
+  p_orders <- 0:max_p
+  q_orders <- 0:max_q
   
   orders <- expand.grid(p = p_orders, q = q_orders)
   orders <- orders[!(orders$p == 0 & orders$q == 0),]
@@ -58,14 +59,18 @@ fit_best_arima <- function(df,
   # In case when the model fails to converge, the converged variable is set to false
   
   tryCatch({
-  best_model <- Arima(df,
-                      order = c(best_p, 1, best_q),
-                      method = "ML",
-                      optim.control = list(maxit = max_iterations))
+    best_model <- Arima(df,
+                        order = c(best_p, 1, best_q),
+                        method = "ML",
+                        optim.control = list(maxit = max_iterations))
   }, warning = function(w) {
-    converged <- FALSE
+    converged <<- FALSE
+    best_model <<- Arima(df,
+                         order = c(best_p, 1, best_q),
+                         method = "ML",
+                         optim.control = list(maxit = max_iterations))
   })
-
+  
   output = list(best_model, converged)
   
   return(output)
@@ -81,11 +86,6 @@ arima_rolling_forecast <- function(prices,
                                    fit_best_arima_params = list(max_p = 5,
                                                                 max_q = 5,
                                                                 max_iterations = 500)) {
-  # Set up parallel processing
-  
-  cl <- makeCluster(detectCores())
-  registerDoParallel(cl)
-  
   # Prepare log file
   
   if (log) {
@@ -138,7 +138,7 @@ arima_rolling_forecast <- function(prices,
                          " Estimation window: ", index(prices[i - estimation_window_length]), " - ", index(prices[i - 1]),
                          ", Best order: (", arimaorder(model)[1], ", 1, ", arimaorder(model)[3],
                          "), AIC: ", round(model$aic, 2),
-                         ifelse(fit_output[[2]], ", Final model converged", "Final model FAILED to converge"))
+                         ifelse(fit_output[[2]], ", Final model converged", ", Final model FAILED to converge"))
       
       writeLines(log_line, con = file_con)
     }
@@ -153,10 +153,6 @@ arima_rolling_forecast <- function(prices,
   if (progress_bar) {close(pb)}
   if (log) {close(file_con)}
   
-  # Stop cluster
-  
-  stopCluster(cl)
-  
   return(forecasts)
 }
 
@@ -167,10 +163,11 @@ fit_best_arima_garch <- function(df,
                                  max_p = 5,
                                  max_q = 5,
                                  max_iterations = 100000) {
-  p_orders <- 0:max_p
-  q_orders <- 0:max_q
   
   # Create order search space (excluding (0, 1, 0))
+  
+  p_orders <- 0:max_p
+  q_orders <- 0:max_q
   
   orders <- expand.grid(p = p_orders, q = q_orders)
   orders <- orders[!(orders$p == 0 & orders$q == 0),]
@@ -181,7 +178,7 @@ fit_best_arima_garch <- function(df,
   best_q <- NULL
   best_aic <- Inf
   
-  for (i in 1:nrow(orders)) {
+  for(i in 1:nrow(orders)) {
     p <- orders$p[i]
     q <- orders$q[i]
     
@@ -213,18 +210,21 @@ fit_best_arima_garch <- function(df,
   converged <- TRUE
   
   best_spec <- ugarchspec(variance.model = list(model = "sGARCH",
-                                           garchOrder = c(1, 1)),
+                                                garchOrder = c(1, 1)),
                           mean.model = list(armaOrder = c(best_p, best_q),
                                             include.mean = TRUE))
   
   # In case when the model fails to converge, the converged variable is set to false
   
   tryCatch({
-  best_model <- ugarchfit(spec = best_spec,
-                          data = df,
-                          solver.control = list(maxit = max_iterations))
+    best_model <- ugarchfit(spec = best_spec,
+                            data = df,
+                            solver.control = list(maxit = max_iterations))
   }, warning = function(w) {
-    converged <- FALSE
+    converged <<- FALSE
+    best_model <<- ugarchfit(spec = best_spec,
+                             data = df,
+                             solver.control = list(maxit = 1000000))
   })
   
   output = list(best_model, converged)
@@ -234,23 +234,18 @@ fit_best_arima_garch <- function(df,
 
 
 arima_garch_rolling_forecast <- function(prices,
-                                   estimation_start_date,
-                                   estimation_end_date,
-                                   estimation_window_length = 1000,
-                                   seed = 1,
-                                   log = TRUE,
-                                   progress_bar = TRUE,
-                                   fit_best_arima_garch_params = list(max_p = 5,
-                                                                      max_q = 5,
-                                                                      max_iterations = 100000),
-                                   ugarchboot_params = list(method = c("Partial","Full")[1],
-                                                            n.bootpred = 100,
-                                                            n.bootfit = 500)) {
-  # Set up parallel processing
-  
-  cl <- makeCluster(detectCores())
-  registerDoParallel(cl)
-  
+                                         estimation_start_date,
+                                         estimation_end_date,
+                                         estimation_window_length = 1000,
+                                         seed = 1,
+                                         log = TRUE,
+                                         progress_bar = TRUE,
+                                         fit_best_arima_garch_params = list(max_p = 5,
+                                                                            max_q = 5,
+                                                                            max_iterations = 100000),
+                                         ugarchboot_params = list(method = c("Partial","Full")[1],
+                                                                  n.bootpred = 100,
+                                                                  n.bootfit = 500)) {
   # Prepare log file
   
   if (log) {
@@ -310,7 +305,7 @@ arima_garch_rolling_forecast <- function(prices,
                          " Estimation window: ", index(prices[i - estimation_window_length]), " - ", index(prices[i - 1]),
                          ", Best order: (", model@model$modelinc['ar'], ", 1, ", model@model$modelinc['ma'],
                          ")-(1, 1), AIC: ", infocriteria(model)[1],
-                         ifelse(fit_output[[2]], ", Final model converged", "Final model FAILED to converge"))
+                         ifelse(fit_output[[2]], ", Final model converged", ", Final model FAILED to converge"))
       
       writeLines(log_line, con = file_con)
     }
@@ -324,11 +319,6 @@ arima_garch_rolling_forecast <- function(prices,
   
   if (progress_bar) {close(pb)}
   if (log) {close(file_con)}
-
-  
-  # Stop cluster
-  
-  stopCluster(cl)
   
   return(forecasts)
 }
