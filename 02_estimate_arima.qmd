@@ -6,7 +6,7 @@ date: 2024-05-16
 Loading required packages
 
 ```{r}
-packages <- c("quantmod", "xts")
+packages <- c("doParallel", "foreach", "quantmod", "xts")
 
 for (package in packages) {
   if (!require(package, character.only = TRUE)) {
@@ -31,15 +31,75 @@ source("functions/arima_models.R")
 Estimating ARIMA forecasts for the base case scenario
 
 ```{r}
-arima_forecasts <- arima_rolling_forecast(sp500_prices,
-                                          estimation_start_date = "2005-12-20", # 2005-12-20
-                                          estimation_end_date = "2019-12-31") # 2019-12-31
+n_splits <- 20 # how many chunks to split the calculation process into
+
+forecast_indexes <- index(sp500_prices[which(index(sp500_prices) == "2005-12-20"):length(sp500_prices)]) # include dates for which we are making forecasts (so from 2005-12-20 to 2019-12-31)
+
+# Initialize parallel computing
+
+num_cores <- detectCores() - 1
+cl <- makeCluster(num_cores)
+registerDoParallel(cl)
+
+foreach (i = 1:n_splits) %dopar% {
+  source("functions/arima_models.R")
+  
+  split_size <- length(forecast_indexes) %/% n_splits
+  
+  split_start_date <- forecast_indexes[((i - 1) * split_size + 1)]
+  split_end_date <- forecast_indexes[(i * split_size)]
+  
+  if (i == n_splits) {split_end_date <- forecast_indexes[length(forecast_indexes)]}
+    
+  print(paste0(split_start_date, "-", split_end_date))
+  
+  arima_forecasts <- arima_rolling_forecast(sp500_prices,
+                                            estimation_start_date = paste0(split_start_date),
+                                            estimation_end_date = paste0(split_end_date),
+                                            progress_bar = FALSE) 
+  
+  saveRDS(arima_forecasts,
+          file = paste0("output/arima_base_case/",
+                        split_start_date, "_", split_end_date ,".rds"))
+}
+
+stopCluster(cl)
 ```
 
 Estimating ARIMA-GARCH forecasts for the base case scenario
 
 ```{r}
-arima_garch_forecasts <- arima_garch_rolling_forecast(sp500_prices,
-                                                      estimation_start_date = "2005-12-20", # 2005-12-20
-                                                      estimation_end_date = "2019-12-31") # 2019-12-31
+n_splits <- 20 # how many chunks to split the calculation process into
+
+forecast_indexes <- index(sp500_prices[which(index(sp500_prices) == "2005-12-20"):length(sp500_prices)]) # include dates for which we are making forecasts (so from 2005-12-20 to 2019-12-31)
+
+# Initialize parallel computing
+
+num_cores <- detectCores() - 1
+cl <- makeCluster(num_cores)
+registerDoParallel(cl)
+
+foreach (i = 1:n_splits) %dopar% {
+  source("functions/arima_models.R")
+  
+  split_size <- length(forecast_indexes) %/% n_splits
+  
+  split_start_date <- forecast_indexes[((i - 1) * split_size + 1)]
+  split_end_date <- forecast_indexes[(i * split_size)]
+  
+  if (i == n_splits) {split_end_date <- forecast_indexes[length(forecast_indexes)]}
+    
+  print(paste0(split_start_date, "-", split_end_date))
+  
+  arima_garch_forecasts <- arima_garch_rolling_forecast(sp500_prices,
+                                                      estimation_start_date = paste0(split_start_date), 
+                                                      estimation_end_date = paste0(split_end_date),
+                                                      progress_bar = FALSE)
+  
+  saveRDS(arima_forecasts,
+          file = paste0("output/arima-garch_base_case/",
+                        split_start_date, "_", split_end_date ,".rds"))
+}
+
+stopCluster(cl)
 ```

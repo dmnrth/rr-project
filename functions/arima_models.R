@@ -1,6 +1,6 @@
 # Loading required packages
 
-packages <- c("doParallel", "foreach", "forecast", "pbmcapply", "rugarch", "xts")
+packages <- c("forecast", "pbmcapply", "rugarch", "xts")
 
 for (package in packages) {
   if (!require(package, character.only = TRUE)) {
@@ -89,7 +89,8 @@ arima_rolling_forecast <- function(prices,
   # Prepare log file
   
   if (log) {
-    log_name <- paste0(format(Sys.time(), "%Y%m%d_%H%M%S"), "_ARIMA.txt")
+    log_name <- paste0(format(Sys.time(), "%Y%m%d_%H%M%S"), "_ARIMA_",
+                       estimation_start_date, "_", estimation_end_date, ".txt")
     path <- paste0("logs/", log_name)
     file.create(path)
     file_con <- file(path, open = "a")
@@ -249,7 +250,8 @@ arima_garch_rolling_forecast <- function(prices,
   # Prepare log file
   
   if (log) {
-    log_name <- paste0(format(Sys.time(), "%Y%m%d_%H%M%S"), "_ARIMA-GARCH.txt")
+    log_name <- paste0(format(Sys.time(), "%Y%m%d_%H%M%S"), "_ARIMA-GARCH_",
+                       estimation_start_date, "_", estimation_end_date, ".txt")
     path <- paste0("logs/", log_name)
     file.create(path)
     file_con <- file(path, open = "a")
