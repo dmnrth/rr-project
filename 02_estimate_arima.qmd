@@ -96,7 +96,7 @@ foreach (i = 1:n_splits) %dopar% {
                                                       estimation_end_date = paste0(split_end_date),
                                                       progress_bar = FALSE)
   
-  saveRDS(arima_forecasts,
+  saveRDS(arima_garch_forecasts,
           file = paste0("output/arima-garch_base_case/",
                         split_start_date, "_", split_end_date ,".rds"))
 }
