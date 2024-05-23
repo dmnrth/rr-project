@@ -6,7 +6,7 @@ date: 2024-05-12
 Loading required packages
 
 ```{r}
-packages <- c("moments", "quantmod", "xts", "DT", 'tidyverse')
+packages <- c("moments", "quantmod", "xts", "DT", 'tidyverse', 'patchwork')
 
 for (package in packages) {
   if (!require(package, character.only = TRUE)) {
@@ -67,9 +67,63 @@ tibble(statistic = colnames(ret_stats), SP500_prices_adj = round(as.numeric(pric
   formatRound(columns = c('SP500_prices_adj','SP500_Log_Returns'), digits = 4)
 ```
 
-Saving data and deleting unnecessary objects
+Plot of prices and returns
 
-#todo create plots
+```{r}
+p1 = ggplot(fortify(sp500_prices)) +
+  geom_line(aes(x=Index, y=GSPC.Adjusted), colour = 'blue') +
+  scale_x_date(date_labels = "%d %b %Y") +
+  xlab("") +
+  ylab("") + 
+  theme(axis.title.x=element_blank(),
+        axis.text.x=element_blank(),
+        axis.ticks.x=element_blank()) +
+  ggtitle('S&P500 prices')
+p2 = ggplot(fortify(sp500_log_returns)) +
+  geom_line(aes(x=Index, y=GSPC.Adjusted), colour = 'darkred') +
+  scale_x_date(date_labels = "%d %b %Y") +
+  xlab("") +
+  ylab("") + 
+  theme(axis.title.x=element_blank(),
+      axis.text.x=element_blank(),
+      axis.ticks.x=element_blank()) + 
+  ggtitle('S&P500 log returns')
+p3 = ggplot(fortify(sp500_simple_returns)) +
+  geom_line(aes(x=Index, y=GSPC.Adjusted), colour = 'darkgreen') +
+  scale_x_date(date_labels = "%d %b %Y") +
+  xlab("") +
+  ylab("") +
+  ggtitle('S&P500 simple returns')
+p1 / p2 / p3
+```
+
+Histogram of log returns
+
+```{r}
+ggplot(fortify(na.omit(sp500_log_returns))) + 
+  geom_histogram(aes(x = GSPC.Adjusted),binwidth = 0.001, colour = 'blue') +
+  ylab('Frequency') + 
+  xlab('Log returns') +
+  xlim(c(-0.15,0.15))
+```
+
+Smoothed density and Q-Q plots
+
+```{r}
+p1 = ggplot(fortify(na.omit(sp500_log_returns))) + 
+  geom_density(aes(x = GSPC.Adjusted), colour = 'blue') +
+  ylab('Density estimate') + 
+  xlab('Log returns')
+
+p2 = ggplot(fortify(na.omit(sp500_log_returns))) + 
+  geom_qq_line(aes(sample = GSPC.Adjusted), colour = 'red') +
+  geom_qq(aes(sample = GSPC.Adjusted), colour = 'black') +
+  ylab('Sample Quantiles') + 
+  xlab('Theoretical Quantiles')
+p1|p2
+```
+
+Saving data and deleting unnecessary objects
 
 ```{r}
 saveRDS(sp500_prices,
