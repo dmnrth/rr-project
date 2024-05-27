@@ -35,7 +35,7 @@ num_cores <- detectCores() - 1
 cl <- makeCluster(num_cores)
 registerDoParallel(cl)
 
-foreach (i = 1:n_splits) %dopar% {
+out = foreach (i = 1:n_splits, errorhandling='pass') %dopar% {
   source("functions/arima_models.R")
   
   split_size <- length(forecast_indexes) %/% n_splits
@@ -50,7 +50,7 @@ foreach (i = 1:n_splits) %dopar% {
   arima_garch_forecasts <- arima_garch_rolling_forecast(sp500_prices,
                                                       estimation_start_date = paste0(split_start_date), 
                                                       estimation_end_date = paste0(split_end_date),
-                                                      progress_bar = TRUE,
+                                                      progress_bar = FALSE,
                                                       estimation_window_length = window_len,
                                                       g_model = g_model,
                                                       distribution = distribution)
@@ -59,8 +59,10 @@ foreach (i = 1:n_splits) %dopar% {
   dir.create(output_dir, showWarnings = FALSE, recursive = TRUE)
   saveRDS(arima_garch_forecasts,
           file = paste0(output_dir, "/", split_start_date, "_", split_end_date ,".rds"))
+  
+  return(paste0(forecast_indexes[1],"_",forecast_indexes[length(forecast_indexes)]))
 }
-
+print(out)
 stopCluster(cl)
 ```
 
@@ -80,7 +82,7 @@ for (j in 1:length(window_len)){
   
   forecast_indexes <- index(sp500_prices[(which(index(sp500_prices) == "2002-01-02") + window_len[j]):length(sp500_prices)]) 
   
-  foreach (i = 1:n_splits) %dopar% {
+  out = foreach (i = 1:n_splits, errorhandling='pass') %dopar% {
     source("functions/arima_models.R")
     
     split_size <- length(forecast_indexes) %/% n_splits
@@ -93,7 +95,7 @@ for (j in 1:length(window_len)){
     arima_garch_forecasts <- arima_garch_rolling_forecast(sp500_prices,
                                                         estimation_start_date = paste0(split_start_date), 
                                                         estimation_end_date = paste0(split_end_date),
-                                                        progress_bar = TRUE,
+                                                        progress_bar = FALSE,
                                                         estimation_window_length = window_len[j],
                                                         g_model = g_model,
                                                         distribution = distribution)
@@ -102,7 +104,10 @@ for (j in 1:length(window_len)){
     dir.create(output_dir, showWarnings = FALSE, recursive = TRUE)
     saveRDS(arima_garch_forecasts,
             file = paste0(output_dir, "/", split_start_date, "_", split_end_date ,".rds"))
+    
+    return(paste0(forecast_indexes[1],"_",forecast_indexes[length(forecast_indexes)]))
   }
+  print(out)
 }
 stopCluster(cl)
 ```
@@ -123,7 +128,7 @@ forecast_indexes <- index(sp500_prices[(which(index(sp500_prices) == "2002-01-02
 
 for (j in 1:length(distribution)){
   
-  foreach (i = 1:n_splits) %dopar% {
+  out = foreach (i = 1:n_splits, errorhandling='pass') %dopar% {
     source("functions/arima_models.R")
     
     split_size <- length(forecast_indexes) %/% n_splits
@@ -138,7 +143,7 @@ for (j in 1:length(distribution)){
     arima_garch_forecasts <- arima_garch_rolling_forecast(sp500_prices,
                                                         estimation_start_date = paste0(split_start_date), 
                                                         estimation_end_date = paste0(split_end_date),
-                                                        progress_bar = TRUE,
+                                                        progress_bar = FALSE,
                                                         estimation_window_length = window_len,
                                                         g_model = g_model,
                                                         distribution = distribution[j])
@@ -147,7 +152,10 @@ for (j in 1:length(distribution)){
     dir.create(output_dir, showWarnings = FALSE, recursive = TRUE)
     saveRDS(arima_garch_forecasts,
            file = paste0(output_dir, "/", split_start_date, "_", split_end_date ,".rds"))
+    
+    return(paste0(forecast_indexes[1],"_",forecast_indexes[length(forecast_indexes)]))
   }
+  print(out)
 }
 stopCluster(cl)
 ```
