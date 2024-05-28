@@ -35,7 +35,7 @@ num_cores <- detectCores() - 1
 cl <- makeCluster(num_cores)
 registerDoParallel(cl)
 
-out = foreach (i = 1:n_splits, errorhandling='pass') %dopar% {
+out = foreach (i = 1:n_splits, .errorhandling='pass') %dopar% {
   source("functions/arima_models.R")
   
   split_size <- length(forecast_indexes) %/% n_splits
@@ -60,7 +60,7 @@ out = foreach (i = 1:n_splits, errorhandling='pass') %dopar% {
   saveRDS(arima_garch_forecasts,
           file = paste0(output_dir, "/", split_start_date, "_", split_end_date ,".rds"))
   
-  return(paste0(forecast_indexes[1],"_",forecast_indexes[length(forecast_indexes)]))
+  return(paste0(split_start_date,"_",split_end_date))
 }
 print(out)
 stopCluster(cl)
@@ -82,7 +82,7 @@ for (j in 1:length(window_len)){
   
   forecast_indexes <- index(sp500_prices[(which(index(sp500_prices) == "2002-01-02") + window_len[j]):length(sp500_prices)]) 
   
-  out = foreach (i = 1:n_splits, errorhandling='pass') %dopar% {
+  out = foreach (i = 1:n_splits, .errorhandling='pass') %dopar% {
     source("functions/arima_models.R")
     
     split_size <- length(forecast_indexes) %/% n_splits
@@ -105,7 +105,7 @@ for (j in 1:length(window_len)){
     saveRDS(arima_garch_forecasts,
             file = paste0(output_dir, "/", split_start_date, "_", split_end_date ,".rds"))
     
-    return(paste0(forecast_indexes[1],"_",forecast_indexes[length(forecast_indexes)]))
+    return(paste0(split_start_date,"_",split_end_date))
   }
   print(out)
 }
@@ -128,7 +128,7 @@ forecast_indexes <- index(sp500_prices[(which(index(sp500_prices) == "2002-01-02
 
 for (j in 1:length(distribution)){
   
-  out = foreach (i = 1:n_splits, errorhandling='pass') %dopar% {
+  out = foreach (i = 1:n_splits, .errorhandling='pass') %dopar% {
     source("functions/arima_models.R")
     
     split_size <- length(forecast_indexes) %/% n_splits
@@ -153,7 +153,7 @@ for (j in 1:length(distribution)){
     saveRDS(arima_garch_forecasts,
            file = paste0(output_dir, "/", split_start_date, "_", split_end_date ,".rds"))
     
-    return(paste0(forecast_indexes[1],"_",forecast_indexes[length(forecast_indexes)]))
+    return(paste0(split_start_date,"_",split_end_date))
   }
   print(out)
 }
