@@ -257,7 +257,7 @@ arima_garch_rolling_forecast <- function(prices,
                                          ugarchboot_params = list(method = c("Partial","Full")[1],
                                                                   n.bootpred = 100,
                                                                   n.bootfit = 500),
-                                         g_model = 'sGarch',
+                                         g_model = 'sGARCH',
                                          distribution = 'ged') {
   # Prepare log file
   
