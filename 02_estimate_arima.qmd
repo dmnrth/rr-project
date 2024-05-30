@@ -41,7 +41,7 @@ num_cores <- detectCores() - 1
 cl <- makeCluster(num_cores)
 registerDoParallel(cl)
 
-out = foreach (i = 1:n_splits, .errorhandling='pass') %dopar% {
+out = foreach (i = c(3), .errorhandling='pass') %dopar% { # 1:n_splits, .errorhandling='pass') %dopar% {
   source("functions/arima_models.R")
   
   split_size <- length(forecast_indexes) %/% n_splits
