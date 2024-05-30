@@ -36,20 +36,24 @@ fit_best_arima <- function(df,
     p <- orders$p[i]
     q <- orders$q[i]
     
-    # Fitting ARIMA(p, 1, q) model
-    
-    model <- Arima(df, 
-                   order = c(p, 1, q),
-                   method = "ML",
-                   optim.control = list(maxit = max_iterations))
-    
-    # Update best parameters if AIC is better
-    
-    if (model$aic < best_aic) {
-      best_p <- p
-      best_q <- q
-      best_aic <- model$aic
-    }
+    tryCatch({
+      # Fitting ARIMA(p, 1, q) model
+      
+      model <- Arima(df, 
+                     order = c(p, 1, q),
+                     method = "ML",
+                     optim.control = list(maxit = max_iterations))
+      
+      # Update best parameters if AIC is better
+      
+      if (model$aic < best_aic) {
+        best_p <- p
+        best_q <- q
+        best_aic <- model$aic
+      }
+    }, error = function(e) {
+      # Skip this iteration in case of an error
+    })
   }
   
   # Fitting the best model
@@ -89,9 +93,12 @@ arima_rolling_forecast <- function(prices,
   # Prepare log file
   
   if (log) {
+    log_dir <- paste0("logs/arima_", estimation_window_length, "/")
+    dir.create(log_dir, showWarnings = FALSE, recursive = TRUE)
     log_name <- paste0(format(Sys.time(), "%Y%m%d_%H%M%S"), "_ARIMA_",
+                       estimation_window_length, "_",
                        estimation_start_date, "_", estimation_end_date, ".txt")
-    path <- paste0("logs/", log_name)
+    path <- paste0(log_dir, log_name)
     file.create(path)
     file_con <- file(path, open = "a")
   }
@@ -190,28 +197,32 @@ fit_best_arima_garch <- function(df,
     p <- orders$p[i]
     q <- orders$q[i]
     
-    # Fitting ARIMA(p, 1, q)-GARCH(1, 1) model
-    
-    spec <- ugarchspec(variance.model = list(model = g_model,
-                                             garchOrder = c(1, 1)),
-                       mean.model = list(armaOrder = c(p, q),
-                                         include.mean = TRUE),
-                       distribution = distribution)
-
-    model <- ugarchfit(spec = spec,
-                       data = df,
-                       solver = "hybrid",
-                       solver.control = list(maxeval = max_iterations,
-                                             ftol_rel = 1e-6,
-                                             xtol_rel = 1e-4))
-
-    # Update best parameters if AIC is better
-    
-    if (infocriteria(model)[1] < best_aic) {
-      best_p <- p
-      best_q <- q
-      best_aic <- infocriteria(model)[1]
-    }
+    tryCatch({
+      # Fitting ARIMA(p, 1, q)-GARCH(1, 1) model
+      
+      spec <- ugarchspec(variance.model = list(model = g_model,
+                                               garchOrder = c(1, 1)),
+                         mean.model = list(armaOrder = c(p, q),
+                                           include.mean = TRUE),
+                         distribution = distribution)
+  
+      model <- ugarchfit(spec = spec,
+                         data = df,
+                         solver = "hybrid",
+                         solver.control = list(maxeval = max_iterations,
+                                               ftol_rel = 1e-6,
+                                               xtol_rel = 1e-4))
+  
+      # Update best parameters if AIC is better
+      
+      if (infocriteria(model)[1] < best_aic) {
+        best_p <- p
+        best_q <- q
+        best_aic <- infocriteria(model)[1]
+      }
+    }, error = function(e) {
+      # Skip this iteration in case of an error
+    })
   }
   
   # Fitting the best model
@@ -262,11 +273,13 @@ arima_garch_rolling_forecast <- function(prices,
   # Prepare log file
   
   if (log) {
+    log_dir <- paste0("logs/arima-", tolower(g_model), "_", tolower(distribution), "_", estimation_window_length, "/")
+    dir.create(log_dir, showWarnings = FALSE, recursive = TRUE)
     log_name <- paste0(format(Sys.time(), "%Y%m%d_%H%M%S"), "_ARIMA-", 
                        toupper(g_model), ".", toupper(distribution), "_",
-                       estimation_window_length ,"_",
+                       estimation_window_length, "_",
                        estimation_start_date, "_", estimation_end_date, ".txt")
-    path <- paste0("logs/", log_name)
+    path <- paste0(log_dir, log_name)
     file.create(path)
     file_con <- file(path, open = "a")
   }

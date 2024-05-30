@@ -56,9 +56,10 @@ out = foreach (i = 1:n_splits, .errorhandling='pass') %dopar% {
                                             estimation_end_date = paste0(split_end_date),
                                             progress_bar = FALSE) 
   
+  dir.create("output/arima_base_case/", showWarnings = FALSE, recursive = TRUE)
   saveRDS(arima_forecasts,
           file = paste0("output/arima_base_case/",
-                        split_start_date, "_", split_end_date ,".rds"))
+                        i, "_of_", n_splits, "_", split_start_date, "_", split_end_date ,".rds"))
   return(paste0(split_start_date,"_",split_end_date))
 }
 print(out)
@@ -93,9 +94,10 @@ out = foreach (i = 1:n_splits, .errorhandling='pass') %dopar% {
                                                       estimation_end_date = paste0(split_end_date),
                                                       progress_bar = FALSE)
   
+  dir.create("output/arima-garch_base_case/", showWarnings = FALSE, recursive = TRUE)
   saveRDS(arima_garch_forecasts,
           file = paste0("output/arima-garch_base_case/",
-                        split_start_date, "_", split_end_date ,".rds"))
+                        i, "_of_", n_splits, "_", split_start_date, "_", split_end_date ,".rds"))
   return(paste0(split_start_date,"_",split_end_date))
 }
 print(out)
