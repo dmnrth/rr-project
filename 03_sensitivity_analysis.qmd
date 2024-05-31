@@ -17,7 +17,7 @@ for (package in packages) {
 Loading S&P500 price data
 
 ```{r}
-sp500_prices <- readRDS("input/sp500_prices.rds")
+sp500_log_returns <- readRDS("input/sp500_log_returns.rds")
 source("functions/arima_models.R")
 ```
 
@@ -29,7 +29,7 @@ window_len = 1000
 g_model = 'eGARCH'
 distribution = 'ged'
 
-forecast_indexes <- index(sp500_prices[(which(index(sp500_prices) == "2002-01-02") + window_len):length(sp500_prices)]) 
+forecast_indexes <- index(sp500_log_returns[(which(index(sp500_log_returns) == "2002-01-02") + window_len):length(sp500_log_returns)]) 
 
 num_cores <- detectCores() - 1
 cl <- makeCluster(num_cores)
@@ -47,7 +47,7 @@ out = foreach (i = 1:n_splits, .errorhandling='pass') %dopar% {
     
   print(paste0(split_start_date, "-", split_end_date))
   
-  arima_garch_forecasts <- arima_garch_rolling_forecast(sp500_prices,
+  arima_garch_forecasts <- arima_garch_rolling_forecast(sp500_log_returns,
                                                       estimation_start_date = paste0(split_start_date), 
                                                       estimation_end_date = paste0(split_end_date),
                                                       progress_bar = FALSE,
@@ -80,7 +80,7 @@ registerDoParallel(cl)
 
 for (j in 1:length(window_len)){
   
-  forecast_indexes <- index(sp500_prices[(which(index(sp500_prices) == "2002-01-02") + window_len[j]):length(sp500_prices)]) 
+  forecast_indexes <- index(sp500_log_returns[(which(index(sp500_log_returns) == "2002-01-02") + window_len[j]):length(sp500_log_returns)]) 
   
   out = foreach (i = 1:n_splits, .errorhandling='pass') %dopar% {
     source("functions/arima_models.R")
@@ -92,7 +92,7 @@ for (j in 1:length(window_len)){
     
     if (i == n_splits) {split_end_date <- forecast_indexes[length(forecast_indexes)]}
       
-    arima_garch_forecasts <- arima_garch_rolling_forecast(sp500_prices,
+    arima_garch_forecasts <- arima_garch_rolling_forecast(sp500_log_returns,
                                                         estimation_start_date = paste0(split_start_date), 
                                                         estimation_end_date = paste0(split_end_date),
                                                         progress_bar = FALSE,
@@ -124,7 +124,7 @@ num_cores <- detectCores() - 1
 cl <- makeCluster(num_cores)
 registerDoParallel(cl)
 
-forecast_indexes <- index(sp500_prices[(which(index(sp500_prices) == "2002-01-02") + window_len):length(sp500_prices)]) 
+forecast_indexes <- index(sp500_log_returns[(which(index(sp500_log_returns) == "2002-01-02") + window_len):length(sp500_log_returns)]) 
 
 for (j in 1:length(distribution)){
   
@@ -140,7 +140,7 @@ for (j in 1:length(distribution)){
       
     print(paste0(split_start_date, "-", split_end_date))
     
-    arima_garch_forecasts <- arima_garch_rolling_forecast(sp500_prices,
+    arima_garch_forecasts <- arima_garch_rolling_forecast(sp500_log_returns,
                                                         estimation_start_date = paste0(split_start_date), 
                                                         estimation_end_date = paste0(split_end_date),
                                                         progress_bar = FALSE,

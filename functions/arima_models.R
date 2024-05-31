@@ -18,7 +18,7 @@ fit_best_arima <- function(df,
                            max_q = 5,
                            max_iterations = 500) {
   
-  # Create order search space (excluding (0, 1, 0))
+  # Create order search space (excluding (0, 0, 0))
   
   p_orders <- 0:max_p
   q_orders <- 0:max_q
@@ -37,10 +37,10 @@ fit_best_arima <- function(df,
     q <- orders$q[i]
     
     tryCatch({
-      # Fitting ARIMA(p, 1, q) model
+      # Fitting ARIMA(p, 0, q) model
       
       model <- Arima(df, 
-                     order = c(p, 1, q),
+                     order = c(p, 0, q),
                      method = "ML",
                      optim.control = list(maxit = max_iterations))
       
@@ -64,13 +64,13 @@ fit_best_arima <- function(df,
   
   tryCatch({
     best_model <- Arima(df,
-                        order = c(best_p, 1, best_q),
+                        order = c(best_p, 0, best_q),
                         method = "ML",
                         optim.control = list(maxit = max_iterations))
   }, warning = function(w) {
     converged <<- FALSE
     best_model <<- Arima(df,
-                         order = c(best_p, 1, best_q),
+                         order = c(best_p, 0, best_q),
                          method = "ML",
                          optim.control = list(maxit = max_iterations))
   })
@@ -125,10 +125,6 @@ arima_rolling_forecast <- function(prices,
     
     window <- prices[(i - estimation_window_length):(i - 1)]
     
-    # Decreasing order of magnitude in order to fix overflow of numeric values
-    
-    window = window/1000
-    
     # Fit best ARIMA model
     
     fit_output <- fit_best_arima(window,
@@ -141,7 +137,7 @@ arima_rolling_forecast <- function(prices,
     # Perform one day ahead forecast
     
     arima_forecast <- forecast(model, h = 1)
-    new_row <- xts(arima_forecast$mean[1], index(prices)[i])*1000 # scaling back forecasts
+    new_row <- xts(arima_forecast$mean[1], index(prices)[i])
     forecasts <- rbind(forecasts, new_row)
     
     # Log
@@ -149,7 +145,7 @@ arima_rolling_forecast <- function(prices,
     if (log) {
       log_line <- paste0(format(Sys.time(), "[%Y-%m-%dT%H:%M:%S]"),
                          " Estimation window: ", index(prices[i - estimation_window_length]), " - ", index(prices[i - 1]),
-                         ", Best order: (", arimaorder(model)[1], ", 1, ", arimaorder(model)[3],
+                         ", Best order: (", arimaorder(model)[1], ", 0, ", arimaorder(model)[3],
                          "), AIC: ", round(model$aic, 2),
                          ifelse(fit_output[[2]], ", Final model converged", ", Final model FAILED to converge"))
       
@@ -179,7 +175,7 @@ fit_best_arima_garch <- function(df,
                                  g_model = "sGarch",
                                  distribution = 'ged') {
 
-  # Create order search space (excluding (0, 1, 0))
+  # Create order search space (excluding (0, 0, 0))
   
   p_orders <- 0:max_p
   q_orders <- 0:max_q
@@ -198,7 +194,7 @@ fit_best_arima_garch <- function(df,
     q <- orders$q[i]
     
     tryCatch({
-      # Fitting ARIMA(p, 1, q)-GARCH(1, 1) model
+      # Fitting ARIMA(p, 0, q)-GARCH(1, 1) model
       
       spec <- ugarchspec(variance.model = list(model = g_model,
                                                garchOrder = c(1, 1)),
@@ -305,10 +301,6 @@ arima_garch_rolling_forecast <- function(prices,
     
     window <- prices[(i - estimation_window_length):(i - 1)]
     
-    # Decreasing order of magnitude in order to fix overflow of numeric values
-    
-    window = window/1000
-    
     # Fit best ARIMA-GARCH model
     
     fit_output <- fit_best_arima_garch(window,
@@ -331,7 +323,7 @@ arima_garch_rolling_forecast <- function(prices,
                                                    seed + i +
                                                      ugarchboot_params$n.bootpred +
                                                      ugarchboot_params$n.bootfit)) # seed must be a vector of length n.bootpred + n.bootfit
-    new_row <- xts(arima_garch_forecast@forc@forecast$seriesFor, index(prices)[i])*1000 # scaling back forecasts
+    new_row <- xts(arima_garch_forecast@forc@forecast$seriesFor, index(prices)[i])
     forecasts <- rbind(forecasts, new_row)
     
     # Log
@@ -339,7 +331,7 @@ arima_garch_rolling_forecast <- function(prices,
     if (log) {
       log_line <- paste0(format(Sys.time(), "[%Y-%m-%dT%H:%M:%S]"),
                          " Estimation window: ", index(prices[i - estimation_window_length]), " - ", index(prices[i - 1]),
-                         ", Best order: (", model@model$modelinc['ar'], ", 1, ", model@model$modelinc['ma'],
+                         ", Best order: (", model@model$modelinc['ar'], ", 0, ", model@model$modelinc['ma'],
                          ")-(1, 1), AIC: ", infocriteria(model)[1],
                          ifelse(fit_output[[2]], ", Final model converged", ", Final model FAILED to converge"))
       

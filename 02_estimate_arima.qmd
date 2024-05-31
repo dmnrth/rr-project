@@ -19,7 +19,7 @@ for (package in packages) {
 Loading S&P500 price data
 
 ```{r}
-sp500_prices <- readRDS("input/sp500_prices.rds")
+sp500_log_returns <- readRDS("input/sp500_log_returns.rds")
 ```
 
 Loading functions used for estimation and forecasting of ARIMA models
@@ -33,7 +33,7 @@ Estimating ARIMA forecasts for the base case scenario
 ```{r}
 n_splits <- 20 # how many chunks to split the calculation process into
 
-forecast_indexes <- index(sp500_prices[which(index(sp500_prices) == "2005-12-20"):length(sp500_prices)]) # include dates for which we are making forecasts (so from 2005-12-20 to 2019-12-31)
+forecast_indexes <- index(sp500_log_returns[which(index(sp500_log_returns) == "2005-12-20"):length(sp500_log_returns)]) # include dates for which we are making forecasts (so from 2005-12-20 to 2019-12-31)
 
 # Initialize parallel computing
 
@@ -41,7 +41,7 @@ num_cores <- detectCores() - 1
 cl <- makeCluster(num_cores)
 registerDoParallel(cl)
 
-out = foreach (i = c(3), .errorhandling='pass') %dopar% { # 1:n_splits, .errorhandling='pass') %dopar% {
+out = foreach (i = 1:n_splits, .errorhandling='pass') %dopar% {
   source("functions/arima_models.R")
   
   split_size <- length(forecast_indexes) %/% n_splits
@@ -51,7 +51,7 @@ out = foreach (i = c(3), .errorhandling='pass') %dopar% { # 1:n_splits, .errorha
   
   if (i == n_splits) {split_end_date <- forecast_indexes[length(forecast_indexes)]}
   
-  arima_forecasts <- arima_rolling_forecast(sp500_prices,
+  arima_forecasts <- arima_rolling_forecast(sp500_log_returns,
                                             estimation_start_date = paste0(split_start_date),
                                             estimation_end_date = paste0(split_end_date),
                                             progress_bar = FALSE) 
@@ -71,7 +71,7 @@ Estimating ARIMA-GARCH forecasts for the base case scenario
 ```{r}
 n_splits <- 20 # how many chunks to split the calculation process into
 
-forecast_indexes <- index(sp500_prices[which(index(sp500_prices) == "2005-12-20"):length(sp500_prices)]) # include dates for which we are making forecasts (so from 2005-12-20 to 2019-12-31)
+forecast_indexes <- index(sp500_log_returns[which(index(sp500_log_returns) == "2005-12-20"):length(sp500_log_returns)]) # include dates for which we are making forecasts (so from 2005-12-20 to 2019-12-31)
 
 # Initialize parallel computing
 
@@ -89,7 +89,7 @@ out = foreach (i = 1:n_splits, .errorhandling='pass') %dopar% {
   
   if (i == n_splits) {split_end_date <- forecast_indexes[length(forecast_indexes)]}
   
-  arima_garch_forecasts <- arima_garch_rolling_forecast(sp500_prices,
+  arima_garch_forecasts <- arima_garch_rolling_forecast(sp500_log_returns,
                                                       estimation_start_date = paste0(split_start_date), 
                                                       estimation_end_date = paste0(split_end_date),
                                                       progress_bar = FALSE)
