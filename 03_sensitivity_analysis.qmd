@@ -77,6 +77,7 @@ window_len = c(500, 1500)
 num_cores <- detectCores() - 1
 cl <- makeCluster(num_cores)
 registerDoParallel(cl)
+message <- c()
 
 for (j in 1:length(window_len)){
   
@@ -107,8 +108,9 @@ for (j in 1:length(window_len)){
     
     return(paste0(split_start_date,"_",split_end_date))
   }
-  print(out)
+  message <- cbind(message,out)
 }
+print(message())
 stopCluster(cl)
 ```
 
@@ -123,6 +125,7 @@ window_len = 1000
 num_cores <- detectCores() - 1
 cl <- makeCluster(num_cores)
 registerDoParallel(cl)
+message <- c()
 
 forecast_indexes <- index(sp500_log_returns[(which(index(sp500_log_returns) == "2002-01-02") + window_len):length(sp500_log_returns)]) 
 
@@ -155,7 +158,8 @@ for (j in 1:length(distribution)){
     
     return(paste0(split_start_date,"_",split_end_date))
   }
-  print(out)
+  message <- cbind(message,out)
 }
+print(message)
 stopCluster(cl)
 ```
