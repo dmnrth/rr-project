@@ -171,7 +171,7 @@ arima_rolling_forecast <- function(prices,
 fit_best_arima_garch <- function(df,
                                  max_p = 5,
                                  max_q = 5,
-                                 max_iterations = 100000,
+                                 max_iterations = 1000000,
                                  g_model = "sGarch",
                                  distribution = 'ged') {
 
@@ -314,17 +314,49 @@ arima_garch_rolling_forecast <- function(prices,
     
     # Perform one day ahead forecast
     
-    arima_garch_forecast <- ugarchboot(model,
+    tryCatch({
+      arima_garch_forecast <- ugarchboot(model,
+                                         method = ugarchboot_params$method,
+                                         n.ahead = 1,
+                                         n.bootpred = ugarchboot_params$n.bootpred,
+                                         n.bootfit = ugarchboot_params$n.bootfit,
+                                         rseed = seq(seed + i,
+                                                     seed + i +
+                                                     ugarchboot_params$n.bootpred +
+                                                     ugarchboot_params$n.bootfit)) # seed must be a vector of length n.bootpred + n.bootfit
+        
+      new_row <- xts(arima_garch_forecast@forc@forecast$seriesFor, index(prices)[i])
+      forecasts <- rbind(forecasts, new_row)
+      },
+    error = function(e) {
+      tryCatch({
+      # In case of error fit scaled variables
+        fit_output <- fit_best_arima_garch(window * 10,
+                                       max_p = fit_best_arima_garch_params$max_p,
+                                       max_q = fit_best_arima_garch_params$max_q,
+                                       max_iterations = fit_best_arima_garch_params$max_iterations,
+                                       g_model = g_model,
+                                       distribution = distribution)
+        model <- fit_output[[1]]
+        
+        arima_garch_forecast <- ugarchboot(model,
                                        method = ugarchboot_params$method,
                                        n.ahead = 1,
                                        n.bootpred = ugarchboot_params$n.bootpred,
                                        n.bootfit = ugarchboot_params$n.bootfit,
-                                       rseed = seq(seed + i, 
+                                       rseed = seq(seed + i,
                                                    seed + i +
                                                      ugarchboot_params$n.bootpred +
                                                      ugarchboot_params$n.bootfit)) # seed must be a vector of length n.bootpred + n.bootfit
-    new_row <- xts(arima_garch_forecast@forc@forecast$seriesFor, index(prices)[i])
-    forecasts <- rbind(forecasts, new_row)
+        
+        new_row <- xts(arima_garch_forecast@forc@forecast$seriesFor / 10, index(prices)[i])
+        forecasts <- rbind(forecasts, new_row)
+      },
+      error = function(e) {
+        new_row <- xts(NA, index(prices)[i])
+        forecasts <- rbind(forecasts, new_row)
+      })
+    })
     
     # Log
     
