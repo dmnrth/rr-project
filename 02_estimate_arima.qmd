@@ -66,6 +66,30 @@ print(out)
 stopCluster(cl)
 ```
 
+Merging forecasts, checking for NAs, saving final xts.
+
+```{r}
+# Merging forecasts
+
+final_forecasts <- xts()
+
+for (file_name in list.files("output/arima_base_case/", all.files = FALSE)) {
+  file_path <- paste0("output/arima_base_case/", file_name)
+  forecast_part <- readRDS(file_path)
+  final_forecasts <- rbind(final_forecasts, forecast_part)
+}
+
+tclass(final_forecasts) <- "Date"
+
+# Number of NAs
+
+sum(is.na(final_forecasts))
+
+# Saving forecasts
+
+saveRDS(final_forecasts, file = "output/arima_base_case/arima_base_case_merged.rds")
+```
+
 Estimating ARIMA-GARCH forecasts for the base case scenario
 
 ```{r}
@@ -103,4 +127,29 @@ out = foreach (i = 1:n_splits, .errorhandling='pass') %dopar% {
 print(out)
 
 stopCluster(cl)
+```
+
+
+Merging forecasts, checking for NAs, saving final xts.
+
+```{r}
+# Merging forecasts
+
+final_forecasts <- xts()
+
+for (file_name in list.files("output/arima-garch_base_case/", all.files = FALSE)) {
+  file_path <- paste0("output/arima-garch_base_case/", file_name)
+  forecast_part <- readRDS(file_path)
+  final_forecasts <- rbind(final_forecasts, forecast_part)
+}
+
+tclass(final_forecasts) <- "Date"
+
+# Number of NAs
+
+sum(is.na(final_forecasts))
+
+# Saving forecasts
+
+saveRDS(final_forecasts, file = "output/arima-garch_base_case/arima-garch_base_case_merged.rds")
 ```
