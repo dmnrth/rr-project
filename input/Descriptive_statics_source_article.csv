@@ -1,0 +1,11 @@
+Descriptive Statistics;S&P500 Original Prices;Log Returns
+Min;676.53;-0.0947
+1st Quantile;1151.5349;-0.0047
+Median;1360.955;0.0005
+Arithmetic Mean;1574.6801;0.0002
+3rd Quantile;1986.2225;0.0057
+Max;3240.02;0.1096
+Skew;0.9886;-0.2295
+Kurtosis;-0.0715;8.6448
+Standard Error Mean (se);8.2559;0.0002
+Standard Deviation (sd);585.5315;0.0119
