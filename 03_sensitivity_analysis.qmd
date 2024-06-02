@@ -1,0 +1,165 @@
+---
+title: 03 Sensitivity analysis
+date: 2024-05-24
+---
+
+```{r}
+packages <- c("doParallel", "foreach", "quantmod", "xts")
+
+for (package in packages) {
+  if (!require(package, character.only = TRUE)) {
+    install.packages(package)
+    library(package, character.only = TRUE)
+  }
+}
+```
+
+Loading S&P500 price data
+
+```{r}
+sp500_log_returns <- readRDS("input/sp500_log_returns.rds")
+source("functions/arima_models.R")
+```
+
+Forecasting eGarch with GED distribution on 1000 observations window for sensitivity analysis
+
+```{r}
+n_splits <- 20
+window_len = 1000
+g_model = 'eGARCH'
+distribution = 'ged'
+
+forecast_indexes <- index(sp500_log_returns[(which(index(sp500_log_returns) == "2002-01-02") + window_len):length(sp500_log_returns)]) 
+
+num_cores <- detectCores() - 1
+cl <- makeCluster(num_cores)
+registerDoParallel(cl)
+
+out = foreach (i = 1:n_splits, .errorhandling='pass') %dopar% {
+  source("functions/arima_models.R")
+  
+  split_size <- length(forecast_indexes) %/% n_splits
+  
+  split_start_date <- forecast_indexes[((i - 1) * split_size + 1)]
+  split_end_date <- forecast_indexes[(i * split_size)]
+  
+  if (i == n_splits) {split_end_date <- forecast_indexes[length(forecast_indexes)]}
+    
+  print(paste0(split_start_date, "-", split_end_date))
+  
+  arima_garch_forecasts <- arima_garch_rolling_forecast(sp500_log_returns,
+                                                      estimation_start_date = paste0(split_start_date), 
+                                                      estimation_end_date = paste0(split_end_date),
+                                                      progress_bar = FALSE,
+                                                      estimation_window_length = window_len,
+                                                      g_model = g_model,
+                                                      distribution = distribution)
+  
+  output_dir <- paste0("output/arima-", tolower(g_model), "_", distribution, "_", window_len)
+  dir.create(output_dir, showWarnings = FALSE, recursive = TRUE)
+  saveRDS(arima_garch_forecasts,
+          file = paste0(output_dir, "/", split_start_date, "_", split_end_date ,".rds"))
+  
+  return(paste0(split_start_date,"_",split_end_date))
+}
+print(out)
+stopCluster(cl)
+```
+
+Forecasting sGarch with GED distribution on 500 and 1500 observations windows
+
+```{r}
+n_splits <- 20
+g_model = 'sGARCH'
+distribution = 'ged'
+window_len = c(500, 1500)
+
+num_cores <- detectCores() - 1
+cl <- makeCluster(num_cores)
+registerDoParallel(cl)
+message <- c()
+
+for (j in 1:length(window_len)){
+  
+  forecast_indexes <- index(sp500_log_returns[(which(index(sp500_log_returns) == "2002-01-02") + window_len[j]):length(sp500_log_returns)]) 
+  
+  out = foreach (i = 1:n_splits, .errorhandling='pass') %dopar% {
+    source("functions/arima_models.R")
+    
+    split_size <- length(forecast_indexes) %/% n_splits
+    
+    split_start_date <- forecast_indexes[((i - 1) * split_size + 1)]
+    split_end_date <- forecast_indexes[(i * split_size)]
+    
+    if (i == n_splits) {split_end_date <- forecast_indexes[length(forecast_indexes)]}
+      
+    arima_garch_forecasts <- arima_garch_rolling_forecast(sp500_log_returns,
+                                                        estimation_start_date = paste0(split_start_date), 
+                                                        estimation_end_date = paste0(split_end_date),
+                                                        progress_bar = FALSE,
+                                                        estimation_window_length = window_len[j],
+                                                        g_model = g_model,
+                                                        distribution = distribution)
+    
+    output_dir <- paste0("output/arima-", tolower(g_model), "_", distribution, "_", window_len[j])
+    dir.create(output_dir, showWarnings = FALSE, recursive = TRUE)
+    saveRDS(arima_garch_forecasts,
+            file = paste0(output_dir, "/", split_start_date, "_", split_end_date ,".rds"))
+    
+    return(paste0(split_start_date,"_",split_end_date))
+  }
+  message <- cbind(message,out)
+}
+print(message())
+stopCluster(cl)
+```
+
+Forecasting sGarch with varying distribution functions
+
+```{r}
+n_splits <- 20
+g_model = 'sGARCH'
+distribution = c('sged','snorm','sstd')
+window_len = 1000
+
+num_cores <- detectCores() - 1
+cl <- makeCluster(num_cores)
+registerDoParallel(cl)
+message <- c()
+
+forecast_indexes <- index(sp500_log_returns[(which(index(sp500_log_returns) == "2002-01-02") + window_len):length(sp500_log_returns)]) 
+
+for (j in 1:length(distribution)){
+  
+  out = foreach (i = 1:n_splits, .errorhandling='pass') %dopar% {
+    source("functions/arima_models.R")
+    
+    split_size <- length(forecast_indexes) %/% n_splits
+    
+    split_start_date <- forecast_indexes[((i - 1) * split_size + 1)]
+    split_end_date <- forecast_indexes[(i * split_size)]
+    
+    if (i == n_splits) {split_end_date <- forecast_indexes[length(forecast_indexes)]}
+      
+    print(paste0(split_start_date, "-", split_end_date))
+    
+    arima_garch_forecasts <- arima_garch_rolling_forecast(sp500_log_returns,
+                                                        estimation_start_date = paste0(split_start_date), 
+                                                        estimation_end_date = paste0(split_end_date),
+                                                        progress_bar = FALSE,
+                                                        estimation_window_length = window_len,
+                                                        g_model = g_model,
+                                                        distribution = distribution[j])
+    
+    output_dir <- paste0("output/arima-", tolower(g_model), "_", distribution[j], "_", window_len)
+    dir.create(output_dir, showWarnings = FALSE, recursive = TRUE)
+    saveRDS(arima_garch_forecasts,
+           file = paste0(output_dir, "/", split_start_date, "_", split_end_date ,".rds"))
+    
+    return(paste0(split_start_date,"_",split_end_date))
+  }
+  message <- cbind(message,out)
+}
+print(message)
+stopCluster(cl)
+```

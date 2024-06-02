@@ -18,7 +18,7 @@ fit_best_arima <- function(df,
                            max_q = 5,
                            max_iterations = 500) {
   
-  # Create order search space (excluding (0, 1, 0))
+  # Create order search space (excluding (0, 0, 0))
   
   p_orders <- 0:max_p
   q_orders <- 0:max_q
@@ -36,20 +36,24 @@ fit_best_arima <- function(df,
     p <- orders$p[i]
     q <- orders$q[i]
     
-    # Fitting ARIMA(p, 1, q) model
-    
-    model <- Arima(df, 
-                   order = c(p, 1, q),
-                   method = "ML",
-                   optim.control = list(maxit = max_iterations))
-    
-    # Update best parameters if AIC is better
-    
-    if (model$aic < best_aic) {
-      best_p <- p
-      best_q <- q
-      best_aic <- model$aic
-    }
+    tryCatch({
+      # Fitting ARIMA(p, 0, q) model
+      
+      model <- Arima(df, 
+                     order = c(p, 0, q),
+                     method = "ML",
+                     optim.control = list(maxit = max_iterations))
+      
+      # Update best parameters if AIC is better
+      
+      if (model$aic < best_aic) {
+        best_p <- p
+        best_q <- q
+        best_aic <- model$aic
+      }
+    }, error = function(e) {
+      # Skip this iteration in case of an error
+    })
   }
   
   # Fitting the best model
@@ -60,13 +64,13 @@ fit_best_arima <- function(df,
   
   tryCatch({
     best_model <- Arima(df,
-                        order = c(best_p, 1, best_q),
+                        order = c(best_p, 0, best_q),
                         method = "ML",
                         optim.control = list(maxit = max_iterations))
   }, warning = function(w) {
     converged <<- FALSE
     best_model <<- Arima(df,
-                         order = c(best_p, 1, best_q),
+                         order = c(best_p, 0, best_q),
                          method = "ML",
                          optim.control = list(maxit = max_iterations))
   })
@@ -89,9 +93,12 @@ arima_rolling_forecast <- function(prices,
   # Prepare log file
   
   if (log) {
+    log_dir <- paste0("logs/arima_", estimation_window_length, "/")
+    dir.create(log_dir, showWarnings = FALSE, recursive = TRUE)
     log_name <- paste0(format(Sys.time(), "%Y%m%d_%H%M%S"), "_ARIMA_",
+                       estimation_window_length, "_",
                        estimation_start_date, "_", estimation_end_date, ".txt")
-    path <- paste0("logs/", log_name)
+    path <- paste0(log_dir, log_name)
     file.create(path)
     file_con <- file(path, open = "a")
   }
@@ -113,6 +120,7 @@ arima_rolling_forecast <- function(prices,
   # Perform rolling forecast
   
   for (i in initial_t:end_t) {
+    
     # Prepare data
     
     window <- prices[(i - estimation_window_length):(i - 1)]
@@ -137,7 +145,7 @@ arima_rolling_forecast <- function(prices,
     if (log) {
       log_line <- paste0(format(Sys.time(), "[%Y-%m-%dT%H:%M:%S]"),
                          " Estimation window: ", index(prices[i - estimation_window_length]), " - ", index(prices[i - 1]),
-                         ", Best order: (", arimaorder(model)[1], ", 1, ", arimaorder(model)[3],
+                         ", Best order: (", arimaorder(model)[1], ", 0, ", arimaorder(model)[3],
                          "), AIC: ", round(model$aic, 2),
                          ifelse(fit_output[[2]], ", Final model converged", ", Final model FAILED to converge"))
       
@@ -163,9 +171,11 @@ arima_rolling_forecast <- function(prices,
 fit_best_arima_garch <- function(df,
                                  max_p = 5,
                                  max_q = 5,
-                                 max_iterations = 100000) {
-  
-  # Create order search space (excluding (0, 1, 0))
+                                 max_iterations = 1000000,
+                                 g_model = "sGarch",
+                                 distribution = 'ged') {
+
+  # Create order search space (excluding (0, 0, 0))
   
   p_orders <- 0:max_p
   q_orders <- 0:max_q
@@ -183,34 +193,39 @@ fit_best_arima_garch <- function(df,
     p <- orders$p[i]
     q <- orders$q[i]
     
-    # Fitting ARIMA(p, 1, q)-GARCH(1, 1) model
-    
-    spec <- ugarchspec(variance.model = list(model = "sGARCH",
-                                             garchOrder = c(1, 1)),
-                       mean.model = list(armaOrder = c(p, q),
-                                         include.mean = TRUE))
-    
-    model <- ugarchfit(spec = spec,
-                       data = df,
-                       solver = "hybrid",
-                       solver.control = list(maxeval = max_iterations,
-                                             ftol_rel = 1e-6,
-                                             xtol_rel = 1e-4))
-    
-    # Update best parameters if AIC is better
-    
-    if (infocriteria(model)[1] < best_aic) {
-      best_p <- p
-      best_q <- q
-      best_aic <- infocriteria(model)[1]
-    }
+    tryCatch({
+      # Fitting ARIMA(p, 0, q)-GARCH(1, 1) model
+      
+      spec <- ugarchspec(variance.model = list(model = g_model,
+                                               garchOrder = c(1, 1)),
+                         mean.model = list(armaOrder = c(p, q),
+                                           include.mean = TRUE),
+                         distribution = distribution)
+  
+      model <- ugarchfit(spec = spec,
+                         data = df,
+                         solver = "hybrid",
+                         solver.control = list(maxeval = max_iterations,
+                                               ftol_rel = 1e-6,
+                                               xtol_rel = 1e-4))
+  
+      # Update best parameters if AIC is better
+      
+      if (infocriteria(model)[1] < best_aic) {
+        best_p <- p
+        best_q <- q
+        best_aic <- infocriteria(model)[1]
+      }
+    }, error = function(e) {
+      # Skip this iteration in case of an error
+    })
   }
   
   # Fitting the best model
   
   converged <- TRUE
   
-  best_spec <- ugarchspec(variance.model = list(model = "sGARCH",
+  best_spec <- ugarchspec(variance.model = list(model = g_model,
                                                 garchOrder = c(1, 1)),
                           mean.model = list(armaOrder = c(best_p, best_q),
                                             include.mean = TRUE))
@@ -220,12 +235,14 @@ fit_best_arima_garch <- function(df,
   tryCatch({
     best_model <- ugarchfit(spec = best_spec,
                             data = df,
+                            solver = "hybrid",
                             solver.control = list(maxit = max_iterations))
   }, warning = function(w) {
     converged <<- FALSE
     best_model <<- ugarchfit(spec = best_spec,
                              data = df,
-                             solver.control = list(maxit = 1000000))
+                             solver = "hybrid",
+                             solver.control = list(maxit = max_iterations))
   })
   
   output = list(best_model, converged)
@@ -246,13 +263,19 @@ arima_garch_rolling_forecast <- function(prices,
                                                                             max_iterations = 100000),
                                          ugarchboot_params = list(method = c("Partial","Full")[1],
                                                                   n.bootpred = 100,
-                                                                  n.bootfit = 500)) {
+                                                                  n.bootfit = 500),
+                                         g_model = 'sGARCH',
+                                         distribution = 'ged') {
   # Prepare log file
   
   if (log) {
-    log_name <- paste0(format(Sys.time(), "%Y%m%d_%H%M%S"), "_ARIMA-GARCH_",
+    log_dir <- paste0("logs/arima-", tolower(g_model), "_", tolower(distribution), "_", estimation_window_length, "/")
+    dir.create(log_dir, showWarnings = FALSE, recursive = TRUE)
+    log_name <- paste0(format(Sys.time(), "%Y%m%d_%H%M%S"), "_ARIMA-", 
+                       toupper(g_model), ".", toupper(distribution), "_",
+                       estimation_window_length, "_",
                        estimation_start_date, "_", estimation_end_date, ".txt")
-    path <- paste0("logs/", log_name)
+    path <- paste0(log_dir, log_name)
     file.create(path)
     file_con <- file(path, open = "a")
   }
@@ -283,29 +306,64 @@ arima_garch_rolling_forecast <- function(prices,
     fit_output <- fit_best_arima_garch(window,
                                        max_p = fit_best_arima_garch_params$max_p,
                                        max_q = fit_best_arima_garch_params$max_q,
-                                       max_iterations = fit_best_arima_garch_params$max_iterations)
+                                       max_iterations = fit_best_arima_garch_params$max_iterations,
+                                       g_model = g_model,
+                                       distribution = distribution
+                                       )
     model <- fit_output[[1]]
     
     # Perform one day ahead forecast
     
-    arima_garch_forecast <- ugarchboot(model,
+    tryCatch({
+      arima_garch_forecast <- ugarchboot(model,
+                                         method = ugarchboot_params$method,
+                                         n.ahead = 1,
+                                         n.bootpred = ugarchboot_params$n.bootpred,
+                                         n.bootfit = ugarchboot_params$n.bootfit,
+                                         rseed = seq(seed + i,
+                                                     seed + i +
+                                                     ugarchboot_params$n.bootpred +
+                                                     ugarchboot_params$n.bootfit)) # seed must be a vector of length n.bootpred + n.bootfit
+        
+      new_row <- xts(arima_garch_forecast@forc@forecast$seriesFor, index(prices)[i])
+      forecasts <- rbind(forecasts, new_row)
+      },
+    error = function(e) {
+      tryCatch({
+      # In case of error fit scaled variables
+        fit_output <- fit_best_arima_garch(window * 10,
+                                       max_p = fit_best_arima_garch_params$max_p,
+                                       max_q = fit_best_arima_garch_params$max_q,
+                                       max_iterations = fit_best_arima_garch_params$max_iterations,
+                                       g_model = g_model,
+                                       distribution = distribution)
+        model <- fit_output[[1]]
+        
+        arima_garch_forecast <- ugarchboot(model,
                                        method = ugarchboot_params$method,
                                        n.ahead = 1,
                                        n.bootpred = ugarchboot_params$n.bootpred,
                                        n.bootfit = ugarchboot_params$n.bootfit,
-                                       rseed = seq(seed + i, 
+                                       rseed = seq(seed + i,
                                                    seed + i +
                                                      ugarchboot_params$n.bootpred +
                                                      ugarchboot_params$n.bootfit)) # seed must be a vector of length n.bootpred + n.bootfit
-    new_row <- xts(arima_garch_forecast@forc@forecast$seriesFor, index(prices)[i])
-    forecasts <- rbind(forecasts, new_row)
+        
+        new_row <- xts(arima_garch_forecast@forc@forecast$seriesFor / 10, index(prices)[i])
+        forecasts <- rbind(forecasts, new_row)
+      },
+      error = function(e) {
+        new_row <- xts(NA, index(prices)[i])
+        forecasts <- rbind(forecasts, new_row)
+      })
+    })
     
     # Log
     
     if (log) {
       log_line <- paste0(format(Sys.time(), "[%Y-%m-%dT%H:%M:%S]"),
                          " Estimation window: ", index(prices[i - estimation_window_length]), " - ", index(prices[i - 1]),
-                         ", Best order: (", model@model$modelinc['ar'], ", 1, ", model@model$modelinc['ma'],
+                         ", Best order: (", model@model$modelinc['ar'], ", 0, ", model@model$modelinc['ma'],
                          ")-(1, 1), AIC: ", infocriteria(model)[1],
                          ifelse(fit_output[[2]], ", Final model converged", ", Final model FAILED to converge"))
       

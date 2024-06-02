@@ -126,8 +126,8 @@ p1|p2
 Saving data and deleting unnecessary objects
 
 ```{r}
-saveRDS(sp500_prices,
-        file = "input/sp500_prices.rds")
+saveRDS(sp500_log_returns,
+        file = "input/sp500_log_returns.rds")
 
 rm(list = ls())
 ```
