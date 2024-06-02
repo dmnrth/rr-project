@@ -1,0 +1,91 @@
+---
+title: 05 summary Report
+date: 2024-06-02
+---
+
+# Summary report
+
+Loading required packages
+
+```{r}
+packages <- c("xts", "DT", 'tidyverse', 'patchwork')
+
+for (package in packages) {
+  if (!require(package, character.only = TRUE)) {
+    install.packages(package)
+    library(package, character.only = TRUE)
+  }
+}
+```
+
+# Aim of the study
+
+We based our research on the article Applying Hybrid ARIMA-SGARCH in Algorithmic Investment Strategies on S&P500 Index by Nguyen Vo and Robert Slepaczuk.
+
+Our study aims to evaluate and compare the effectiveness of the ARIMA model and its hybrid combinations with GARCH family models (specifically SGARCH and EGARCH) in forecasting the log returns of the S&P500 index. The research utilizes daily data from Yahoo Finance, spanning from January 1, 2000, to December 31, 2019. Through a rolling window approach, the study investigates whether these hybrid models can better capture the time-series characteristics and offer superior predictive power compared to the standalone ARIMA model. The models are assessed based on their forecasting accuracy (using metrics such as MAE, MAPE, RMSE) and performance (including annualized return, annualized standard deviation, maximum drawdown, information ratio, and adjusted information ratio). The findings indicate that the hybrid models significantly outperform the ARIMA model and the Buy&Hold strategy over the long term, with results remaining robust across different window sizes, distribution types, and GARCH model variations.
+
+# Outline
+
+Our research was divided into five parts, each documented in a separate notebook. In the first notebook, we focused on downloading S&P 500 data. The second notebook was dedicated to estimating ARIMA models. In the third notebook, we conducted sensitivity analysis. The fourth notebook**... \[missing information\].** Finally, in the fifth notebook, we provided a comprehensive summary of our findings and compared our results with those presented in the source article that served as the basis for our research.
+
+# Data source
+
+opisac skąd mamay dane a skąd my mamy Loading S&P500 price data
+
+```{r}
+sp500_prices <- readRDS("input/sp500_prices.rds")
+sp500_simple_returns <- readRDS("input/sp500_simple_returns.rds")
+```
+
+# Statistics
+
+tabelka ze statyskykami z artykułu i napisaćco sie zgadza 
+
+```{r}
+price_stats = tibble(SP500_prices_adj = as.numeric(sp500_prices)) %>% 
+  summarise(Min = min(SP500_prices_adj),
+            Quartile_1st = quantile(SP500_prices_adj,0.25),
+            Median = median(SP500_prices_adj),
+            Mean = mean(SP500_prices_adj),
+            Quartile_3rd = quantile(SP500_prices_adj,0.75),
+            Max = max(SP500_prices_adj),
+            Skew = skewness(SP500_prices_adj),
+            Kurtosis = kurtosis(SP500_prices_adj) - 3,
+            Standard_error = sd(SP500_prices_adj)/sqrt(length(SP500_prices_adj)),
+            Standard_deviation = sd(SP500_prices_adj)
+            )
+
+ret_stats = tibble(SP500_Log_Returns = as.numeric(sp500_log_returns)) %>% 
+  na.omit() %>% 
+  summarise(Min = min(SP500_Log_Returns),
+            Quartile_1st = quantile(SP500_Log_Returns,0.25),
+            Median = median(SP500_Log_Returns),
+            Mean = mean(SP500_Log_Returns),
+            Quartile_3rd = quantile(SP500_Log_Returns,0.75),
+            Max = max(SP500_Log_Returns),
+            Skew = skewness(SP500_Log_Returns),
+            Kurtosis = kurtosis(SP500_Log_Returns) - 3,
+            Standard_error = sd(SP500_Log_Returns)/sqrt(length(SP500_Log_Returns)),
+            Standard_deviation = sd(SP500_Log_Returns)
+            )
+
+tibble(statistic = colnames(ret_stats), SP500_prices_adj = round(as.numeric(price_stats),4), SP500_Log_Returns = round(as.numeric(ret_stats),4)) %>% 
+  datatable() %>% 
+  formatRound(columns = c('SP500_prices_adj','SP500_Log_Returns'), digits = 4)
+```
+
+```{r}
+csv_file_path <- "input/Descriptive_statics_source_article.csv"
+
+data <- read.csv(file=csv_file_path, sep= ";")
+
+print(data)
+```
+
+The tables presented in the images show descriptive statistics of the S&P 500 adjusted prices and log returns. The first table is produced by our group, and the second table is sourced from an article that we based our research on.
+
+Upon comparison, it is clear that there are no differences in the reported statistics between the two tables. Both sets of statistics are identical, which indicates that our results align perfectly with those from the article.
+
+The consistency between the results from our analysis and those from the article demonstrates that our analysis is accurate and reliable. This alignment confirms the robustness of our methods and calculations in deriving the descriptive statistics for the S&P 500 adjusted prices and log returns.
+
+# model estimation \# results comparison \# problems encountered
