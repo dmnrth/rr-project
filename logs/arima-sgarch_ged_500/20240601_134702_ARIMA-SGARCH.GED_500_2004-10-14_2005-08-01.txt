@@ -1,1 +1,0 @@
-[2024-06-01T13:47:18] Estimation window: 2002-10-18 - 2004-10-13, Best order: (2, 0, 5)-(1, 1), AIC: -6.55956999632933, Final model converged

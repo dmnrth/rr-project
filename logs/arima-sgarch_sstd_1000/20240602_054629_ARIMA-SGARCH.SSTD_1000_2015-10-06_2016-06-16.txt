@@ -1,0 +1,176 @@
+[2024-06-02T05:46:53] Estimation window: 2011-10-13 - 2015-10-05, Best order: (4, 0, 5)-(1, 1), AIC: -6.85531425372964, Final model FAILED to converge
+[2024-06-02T05:47:17] Estimation window: 2011-10-14 - 2015-10-06, Best order: (5, 0, 5)-(1, 1), AIC: -6.84036719741359, Final model converged
+[2024-06-02T05:47:41] Estimation window: 2011-10-17 - 2015-10-07, Best order: (5, 0, 3)-(1, 1), AIC: -6.83409709340189, Final model converged
+[2024-06-02T05:48:04] Estimation window: 2011-10-18 - 2015-10-08, Best order: (4, 0, 3)-(1, 1), AIC: -6.84028167578948, Final model converged
+[2024-06-02T05:48:29] Estimation window: 2011-10-19 - 2015-10-09, Best order: (5, 0, 5)-(1, 1), AIC: -6.83454434056446, Final model converged
+[2024-06-02T05:48:52] Estimation window: 2011-10-20 - 2015-10-12, Best order: (5, 0, 5)-(1, 1), AIC: -6.8478097031937, Final model converged
+[2024-06-02T05:49:17] Estimation window: 2011-10-21 - 2015-10-13, Best order: (3, 0, 3)-(1, 1), AIC: -6.83967732007924, Final model converged
+[2024-06-02T05:49:40] Estimation window: 2011-10-24 - 2015-10-14, Best order: (3, 0, 3)-(1, 1), AIC: -6.83890269399289, Final model converged
+[2024-06-02T05:50:04] Estimation window: 2011-10-25 - 2015-10-15, Best order: (5, 0, 4)-(1, 1), AIC: -6.829676459103, Final model converged
+[2024-06-02T05:50:29] Estimation window: 2011-10-26 - 2015-10-16, Best order: (4, 0, 4)-(1, 1), AIC: -6.83734980390776, Final model converged
+[2024-06-02T05:50:51] Estimation window: 2011-10-27 - 2015-10-19, Best order: (3, 0, 4)-(1, 1), AIC: -6.83381633552865, Final model converged
+[2024-06-02T05:51:15] Estimation window: 2011-10-28 - 2015-10-20, Best order: (4, 0, 3)-(1, 1), AIC: -6.84522365763106, Final model converged
+[2024-06-02T05:51:39] Estimation window: 2011-10-31 - 2015-10-21, Best order: (3, 0, 3)-(1, 1), AIC: -6.84622829838877, Final model converged
+[2024-06-02T05:52:02] Estimation window: 2011-11-01 - 2015-10-22, Best order: (5, 0, 5)-(1, 1), AIC: -6.86103902637555, Final model FAILED to converge
+[2024-06-02T05:52:25] Estimation window: 2011-11-02 - 2015-10-23, Best order: (4, 0, 4)-(1, 1), AIC: -6.85267450637131, Final model converged
+[2024-06-02T05:52:49] Estimation window: 2011-11-03 - 2015-10-26, Best order: (4, 0, 5)-(1, 1), AIC: -6.85077195609938, Final model converged
+[2024-06-02T05:53:13] Estimation window: 2011-11-04 - 2015-10-27, Best order: (3, 0, 5)-(1, 1), AIC: -6.85505498387519, Final model converged
+[2024-06-02T05:53:47] Estimation window: 2011-11-07 - 2015-10-28, Best order: (4, 0, 4)-(1, 1), AIC: -6.86841184366202, Final model converged
+[2024-06-02T05:54:09] Estimation window: 2011-11-08 - 2015-10-29, Best order: (3, 0, 4)-(1, 1), AIC: -6.88122397268089, Final model converged
+[2024-06-02T05:54:44] Estimation window: 2011-11-09 - 2015-10-30, Best order: (4, 0, 3)-(1, 1), AIC: -6.87747137130126, Final model converged
+[2024-06-02T05:55:08] Estimation window: 2011-11-10 - 2015-11-02, Best order: (5, 0, 3)-(1, 1), AIC: -6.87427626031686, Final model converged
+[2024-06-02T05:55:32] Estimation window: 2011-11-11 - 2015-11-03, Best order: (5, 0, 5)-(1, 1), AIC: -6.88009583789413, Final model converged
+[2024-06-02T05:55:56] Estimation window: 2011-11-14 - 2015-11-04, Best order: (5, 0, 5)-(1, 1), AIC: -6.88589428005145, Final model converged
+[2024-06-02T05:56:18] Estimation window: 2011-11-15 - 2015-11-05, Best order: (2, 0, 1)-(1, 1), AIC: -6.8848796960389, Final model converged
+[2024-06-02T05:57:27] Estimation window: 2011-11-16 - 2015-11-06, Best order: (5, 0, 5)-(1, 1), AIC: 588.688606380431, Final model FAILED to converge
+[2024-06-02T05:57:50] Estimation window: 2011-11-17 - 2015-11-09, Best order: (5, 0, 5)-(1, 1), AIC: -6.88492526374856, Final model converged
+[2024-06-02T05:58:13] Estimation window: 2011-11-18 - 2015-11-10, Best order: (5, 0, 4)-(1, 1), AIC: -6.88276598728256, Final model converged
+[2024-06-02T05:58:35] Estimation window: 2011-11-21 - 2015-11-11, Best order: (3, 0, 3)-(1, 1), AIC: -6.87973142318105, Final model converged
+[2024-06-02T05:58:58] Estimation window: 2011-11-22 - 2015-11-12, Best order: (5, 0, 5)-(1, 1), AIC: -6.87015754701722, Final model converged
+[2024-06-02T05:59:21] Estimation window: 2011-11-23 - 2015-11-13, Best order: (4, 0, 5)-(1, 1), AIC: -6.86420538439818, Final model converged
+[2024-06-02T05:59:46] Estimation window: 2011-11-25 - 2015-11-16, Best order: (5, 0, 5)-(1, 1), AIC: -6.86987160890481, Final model converged
+[2024-06-02T06:00:09] Estimation window: 2011-11-28 - 2015-11-17, Best order: (4, 0, 4)-(1, 1), AIC: -6.87443967070287, Final model converged
+[2024-06-02T06:00:32] Estimation window: 2011-11-29 - 2015-11-18, Best order: (3, 0, 4)-(1, 1), AIC: -6.88390857854368, Final model converged
+[2024-06-02T06:00:56] Estimation window: 2011-11-30 - 2015-11-19, Best order: (4, 0, 3)-(1, 1), AIC: -6.87291440809918, Final model converged
+[2024-06-02T06:01:21] Estimation window: 2011-12-01 - 2015-11-20, Best order: (5, 0, 4)-(1, 1), AIC: -6.90225404614509, Final model converged
+[2024-06-02T06:01:45] Estimation window: 2011-12-02 - 2015-11-23, Best order: (3, 0, 5)-(1, 1), AIC: -6.90594593602908, Final model converged
+[2024-06-02T06:02:08] Estimation window: 2011-12-05 - 2015-11-24, Best order: (5, 0, 3)-(1, 1), AIC: -6.90540863482105, Final model converged
+[2024-06-02T06:02:31] Estimation window: 2011-12-06 - 2015-11-25, Best order: (4, 0, 5)-(1, 1), AIC: -6.90307796504153, Final model converged
+[2024-06-02T06:02:54] Estimation window: 2011-12-07 - 2015-11-27, Best order: (4, 0, 4)-(1, 1), AIC: -6.92573581198707, Final model converged
+[2024-06-02T06:03:29] Estimation window: 2011-12-08 - 2015-11-30, Best order: (3, 0, 4)-(1, 1), AIC: -6.91330254900789, Final model converged
+[2024-06-02T06:03:54] Estimation window: 2011-12-09 - 2015-12-01, Best order: (3, 0, 4)-(1, 1), AIC: -6.92223902008779, Final model converged
+[2024-06-02T06:04:18] Estimation window: 2011-12-12 - 2015-12-02, Best order: (4, 0, 5)-(1, 1), AIC: -6.91822330508524, Final model converged
+[2024-06-02T06:04:41] Estimation window: 2011-12-13 - 2015-12-03, Best order: (5, 0, 4)-(1, 1), AIC: -6.9294075209574, Final model converged
+[2024-06-02T06:05:04] Estimation window: 2011-12-14 - 2015-12-04, Best order: (5, 0, 5)-(1, 1), AIC: -6.90971372896712, Final model converged
+[2024-06-02T06:05:29] Estimation window: 2011-12-15 - 2015-12-07, Best order: (5, 0, 4)-(1, 1), AIC: -6.91576707637882, Final model converged
+[2024-06-02T06:05:52] Estimation window: 2011-12-16 - 2015-12-08, Best order: (4, 0, 3)-(1, 1), AIC: -6.90882994972362, Final model converged
+[2024-06-02T06:06:15] Estimation window: 2011-12-19 - 2015-12-09, Best order: (5, 0, 4)-(1, 1), AIC: -6.92510447701736, Final model converged
+[2024-06-02T06:06:39] Estimation window: 2011-12-20 - 2015-12-10, Best order: (4, 0, 3)-(1, 1), AIC: -6.91804890554694, Final model converged
+[2024-06-02T06:07:01] Estimation window: 2011-12-21 - 2015-12-11, Best order: (5, 0, 5)-(1, 1), AIC: -6.91932277476756, Final model converged
+[2024-06-02T06:07:22] Estimation window: 2011-12-22 - 2015-12-14, Best order: (5, 0, 4)-(1, 1), AIC: -6.93436785008598, Final model converged
+[2024-06-02T06:07:44] Estimation window: 2011-12-23 - 2015-12-15, Best order: (4, 0, 3)-(1, 1), AIC: -6.92881341154203, Final model converged
+[2024-06-02T06:08:05] Estimation window: 2011-12-27 - 2015-12-16, Best order: (3, 0, 3)-(1, 1), AIC: -6.91563151718389, Final model converged
+[2024-06-02T06:08:26] Estimation window: 2011-12-28 - 2015-12-17, Best order: (3, 0, 4)-(1, 1), AIC: -6.92248104559035, Final model converged
+[2024-06-02T06:08:58] Estimation window: 2011-12-29 - 2015-12-18, Best order: (5, 0, 5)-(1, 1), AIC: -6.9104145502912, Final model converged
+[2024-06-02T06:09:19] Estimation window: 2011-12-30 - 2015-12-21, Best order: (3, 0, 5)-(1, 1), AIC: -6.90615483460768, Final model converged
+[2024-06-02T06:09:40] Estimation window: 2012-01-03 - 2015-12-22, Best order: (4, 0, 4)-(1, 1), AIC: -6.91228617500944, Final model converged
+[2024-06-02T06:10:01] Estimation window: 2012-01-04 - 2015-12-23, Best order: (3, 0, 3)-(1, 1), AIC: -6.91114764577047, Final model converged
+[2024-06-02T06:10:21] Estimation window: 2012-01-05 - 2015-12-24, Best order: (5, 0, 3)-(1, 1), AIC: -6.90149598055102, Final model converged
+[2024-06-02T06:10:43] Estimation window: 2012-01-06 - 2015-12-28, Best order: (4, 0, 4)-(1, 1), AIC: -6.92099166916249, Final model converged
+[2024-06-02T06:11:03] Estimation window: 2012-01-09 - 2015-12-29, Best order: (3, 0, 4)-(1, 1), AIC: -6.91289873189546, Final model converged
+[2024-06-02T06:11:24] Estimation window: 2012-01-10 - 2015-12-30, Best order: (5, 0, 5)-(1, 1), AIC: -6.91471627265754, Final model converged
+[2024-06-02T06:11:44] Estimation window: 2012-01-11 - 2015-12-31, Best order: (1, 0, 1)-(1, 1), AIC: -6.91364315658555, Final model converged
+[2024-06-02T06:12:16] Estimation window: 2012-01-12 - 2016-01-04, Best order: (4, 0, 5)-(1, 1), AIC: -6.89777145718521, Final model converged
+[2024-06-02T06:12:37] Estimation window: 2012-01-13 - 2016-01-05, Best order: (4, 0, 4)-(1, 1), AIC: -6.9017328999616, Final model FAILED to converge
+[2024-06-02T06:12:59] Estimation window: 2012-01-17 - 2016-01-06, Best order: (5, 0, 3)-(1, 1), AIC: -6.89715951871989, Final model converged
+[2024-06-02T06:13:20] Estimation window: 2012-01-18 - 2016-01-07, Best order: (4, 0, 5)-(1, 1), AIC: -6.89671535283585, Final model FAILED to converge
+[2024-06-02T06:13:39] Estimation window: 2012-01-19 - 2016-01-08, Best order: (3, 0, 3)-(1, 1), AIC: -6.89814647440849, Final model converged
+[2024-06-02T06:13:59] Estimation window: 2012-01-20 - 2016-01-11, Best order: (5, 0, 4)-(1, 1), AIC: -6.88969988926515, Final model converged
+[2024-06-02T06:14:19] Estimation window: 2012-01-23 - 2016-01-12, Best order: (5, 0, 4)-(1, 1), AIC: -6.91761265774223, Final model converged
+[2024-06-02T06:14:39] Estimation window: 2012-01-24 - 2016-01-13, Best order: (4, 0, 3)-(1, 1), AIC: -6.88626363912166, Final model converged
+[2024-06-02T06:14:58] Estimation window: 2012-01-25 - 2016-01-14, Best order: (3, 0, 4)-(1, 1), AIC: -6.88365598203552, Final model converged
+[2024-06-02T06:15:18] Estimation window: 2012-01-26 - 2016-01-15, Best order: (5, 0, 5)-(1, 1), AIC: -6.88362243535293, Final model converged
+[2024-06-02T06:15:42] Estimation window: 2012-01-27 - 2016-01-19, Best order: (5, 0, 3)-(1, 1), AIC: -6.89162044288804, Final model converged
+[2024-06-02T06:16:01] Estimation window: 2012-01-30 - 2016-01-20, Best order: (5, 0, 3)-(1, 1), AIC: -6.8764949369928, Final model converged
+[2024-06-02T06:16:33] Estimation window: 2012-01-31 - 2016-01-21, Best order: (3, 0, 5)-(1, 1), AIC: -6.86623866595843, Final model converged
+[2024-06-02T06:16:53] Estimation window: 2012-02-01 - 2016-01-22, Best order: (4, 0, 3)-(1, 1), AIC: -6.87536181118137, Final model converged
+[2024-06-02T06:17:13] Estimation window: 2012-02-02 - 2016-01-25, Best order: (3, 0, 4)-(1, 1), AIC: -6.86951085142573, Final model converged
+[2024-06-02T06:17:34] Estimation window: 2012-02-03 - 2016-01-26, Best order: (5, 0, 5)-(1, 1), AIC: -6.86969830485593, Final model FAILED to converge
+[2024-06-02T06:17:54] Estimation window: 2012-02-06 - 2016-01-27, Best order: (4, 0, 3)-(1, 1), AIC: -6.86995485708329, Final model converged
+[2024-06-02T06:18:12] Estimation window: 2012-02-07 - 2016-01-28, Best order: (3, 0, 4)-(1, 1), AIC: -6.86964234848159, Final model converged
+[2024-06-02T06:18:31] Estimation window: 2012-02-08 - 2016-01-29, Best order: (4, 0, 3)-(1, 1), AIC: -6.87096841968714, Final model converged
+[2024-06-02T06:18:51] Estimation window: 2012-02-09 - 2016-02-01, Best order: (3, 0, 3)-(1, 1), AIC: -6.87028925510849, Final model converged
+[2024-06-02T06:19:10] Estimation window: 2012-02-10 - 2016-02-02, Best order: (5, 0, 5)-(1, 1), AIC: -6.86744248219557, Final model converged
+[2024-06-02T06:19:31] Estimation window: 2012-02-13 - 2016-02-03, Best order: (5, 0, 3)-(1, 1), AIC: -6.87105507832721, Final model converged
+[2024-06-02T06:19:50] Estimation window: 2012-02-14 - 2016-02-04, Best order: (5, 0, 4)-(1, 1), AIC: -6.87242610520555, Final model converged
+[2024-06-02T06:20:10] Estimation window: 2012-02-15 - 2016-02-05, Best order: (5, 0, 3)-(1, 1), AIC: -6.86816847044684, Final model converged
+[2024-06-02T06:20:30] Estimation window: 2012-02-16 - 2016-02-08, Best order: (4, 0, 4)-(1, 1), AIC: -6.84912842827706, Final model converged
+[2024-06-02T06:20:49] Estimation window: 2012-02-17 - 2016-02-09, Best order: (4, 0, 5)-(1, 1), AIC: -6.84978347130535, Final model converged
+[2024-06-02T06:21:08] Estimation window: 2012-02-21 - 2016-02-10, Best order: (3, 0, 3)-(1, 1), AIC: -6.85693133576149, Final model converged
+[2024-06-02T06:21:28] Estimation window: 2012-02-22 - 2016-02-11, Best order: (5, 0, 4)-(1, 1), AIC: -6.86483782375368, Final model converged
+[2024-06-02T06:21:48] Estimation window: 2012-02-23 - 2016-02-12, Best order: (5, 0, 3)-(1, 1), AIC: -6.85112813652437, Final model converged
+[2024-06-02T06:22:07] Estimation window: 2012-02-24 - 2016-02-16, Best order: (5, 0, 4)-(1, 1), AIC: -6.8398646338619, Final model converged
+[2024-06-02T06:22:27] Estimation window: 2012-02-27 - 2016-02-17, Best order: (3, 0, 3)-(1, 1), AIC: -6.85267903461661, Final model FAILED to converge
+[2024-06-02T06:22:47] Estimation window: 2012-02-28 - 2016-02-18, Best order: (4, 0, 5)-(1, 1), AIC: -6.83731236581448, Final model converged
+[2024-06-02T06:23:18] Estimation window: 2012-02-29 - 2016-02-19, Best order: (5, 0, 4)-(1, 1), AIC: -6.8363508859861, Final model converged
+[2024-06-02T06:23:38] Estimation window: 2012-03-01 - 2016-02-22, Best order: (3, 0, 4)-(1, 1), AIC: -6.8388249674928, Final model converged
+[2024-06-02T06:23:57] Estimation window: 2012-03-02 - 2016-02-23, Best order: (5, 0, 5)-(1, 1), AIC: -6.85864664585155, Final model converged
+[2024-06-02T06:24:16] Estimation window: 2012-03-05 - 2016-02-24, Best order: (4, 0, 3)-(1, 1), AIC: -6.83465510431853, Final model converged
+[2024-06-02T06:24:37] Estimation window: 2012-03-06 - 2016-02-25, Best order: (5, 0, 5)-(1, 1), AIC: -6.84444448211767, Final model converged
+[2024-06-02T06:24:56] Estimation window: 2012-03-07 - 2016-02-26, Best order: (5, 0, 5)-(1, 1), AIC: -6.83563232893212, Final model converged
+[2024-06-02T06:25:16] Estimation window: 2012-03-08 - 2016-02-29, Best order: (3, 0, 5)-(1, 1), AIC: -6.83665349493679, Final model converged
+[2024-06-02T06:25:35] Estimation window: 2012-03-09 - 2016-03-01, Best order: (3, 0, 5)-(1, 1), AIC: -6.82968899162217, Final model converged
+[2024-06-02T06:25:54] Estimation window: 2012-03-12 - 2016-03-02, Best order: (3, 0, 4)-(1, 1), AIC: -6.8321052172791, Final model converged
+[2024-06-02T06:26:16] Estimation window: 2012-03-13 - 2016-03-03, Best order: (5, 0, 5)-(1, 1), AIC: -6.8193141288788, Final model FAILED to converge
+[2024-06-02T06:26:36] Estimation window: 2012-03-14 - 2016-03-04, Best order: (3, 0, 5)-(1, 1), AIC: -6.82570002482884, Final model converged
+[2024-06-02T06:26:55] Estimation window: 2012-03-15 - 2016-03-07, Best order: (3, 0, 4)-(1, 1), AIC: -6.83533315188679, Final model FAILED to converge
+[2024-06-02T06:27:13] Estimation window: 2012-03-16 - 2016-03-08, Best order: (1, 0, 1)-(1, 1), AIC: -6.83881411841835, Final model converged
+[2024-06-02T06:27:34] Estimation window: 2012-03-19 - 2016-03-09, Best order: (4, 0, 4)-(1, 1), AIC: -6.8360315611556, Final model FAILED to converge
+[2024-06-02T06:27:53] Estimation window: 2012-03-20 - 2016-03-10, Best order: (5, 0, 4)-(1, 1), AIC: -6.82613850073264, Final model converged
+[2024-06-02T06:28:12] Estimation window: 2012-03-21 - 2016-03-11, Best order: (4, 0, 3)-(1, 1), AIC: -6.82928151774733, Final model FAILED to converge
+[2024-06-02T06:28:32] Estimation window: 2012-03-22 - 2016-03-14, Best order: (3, 0, 4)-(1, 1), AIC: -6.82963300978763, Final model FAILED to converge
+[2024-06-02T06:29:04] Estimation window: 2012-03-23 - 2016-03-15, Best order: (3, 0, 4)-(1, 1), AIC: -6.83035683303889, Final model converged
+[2024-06-02T06:29:25] Estimation window: 2012-03-26 - 2016-03-16, Best order: (3, 0, 5)-(1, 1), AIC: -6.82099843920323, Final model FAILED to converge
+[2024-06-02T06:29:45] Estimation window: 2012-03-27 - 2016-03-17, Best order: (5, 0, 5)-(1, 1), AIC: -6.84286827117604, Final model FAILED to converge
+[2024-06-02T06:30:05] Estimation window: 2012-03-28 - 2016-03-18, Best order: (5, 0, 5)-(1, 1), AIC: -6.83201583021317, Final model converged
+[2024-06-02T06:30:25] Estimation window: 2012-03-29 - 2016-03-21, Best order: (5, 0, 5)-(1, 1), AIC: -6.83841316075342, Final model converged
+[2024-06-02T06:30:44] Estimation window: 2012-03-30 - 2016-03-22, Best order: (3, 0, 3)-(1, 1), AIC: -6.83652062885653, Final model FAILED to converge
+[2024-06-02T06:31:04] Estimation window: 2012-04-02 - 2016-03-23, Best order: (4, 0, 4)-(1, 1), AIC: -6.85032703289825, Final model converged
+[2024-06-02T06:31:24] Estimation window: 2012-04-03 - 2016-03-24, Best order: (5, 0, 5)-(1, 1), AIC: -6.84025942291868, Final model converged
+[2024-06-02T06:31:44] Estimation window: 2012-04-04 - 2016-03-28, Best order: (5, 0, 5)-(1, 1), AIC: -6.8408261402371, Final model converged
+[2024-06-02T06:32:03] Estimation window: 2012-04-05 - 2016-03-29, Best order: (4, 0, 4)-(1, 1), AIC: -6.85560334038577, Final model FAILED to converge
+[2024-06-02T06:32:21] Estimation window: 2012-04-09 - 2016-03-30, Best order: (5, 0, 3)-(1, 1), AIC: -6.85742163975782, Final model converged
+[2024-06-02T06:32:39] Estimation window: 2012-04-10 - 2016-03-31, Best order: (4, 0, 4)-(1, 1), AIC: -6.83404722298811, Final model converged
+[2024-06-02T06:32:57] Estimation window: 2012-04-11 - 2016-04-01, Best order: (5, 0, 5)-(1, 1), AIC: -6.86115772756438, Final model converged
+[2024-06-02T06:33:15] Estimation window: 2012-04-12 - 2016-04-04, Best order: (3, 0, 5)-(1, 1), AIC: -6.85489440132701, Final model converged
+[2024-06-02T06:33:34] Estimation window: 2012-04-13 - 2016-04-05, Best order: (4, 0, 3)-(1, 1), AIC: -6.848366980689, Final model converged
+[2024-06-02T06:33:51] Estimation window: 2012-04-16 - 2016-04-06, Best order: (5, 0, 4)-(1, 1), AIC: -6.85742423465892, Final model converged
+[2024-06-02T06:34:20] Estimation window: 2012-04-17 - 2016-04-07, Best order: (4, 0, 3)-(1, 1), AIC: -6.844237437451, Final model converged
+[2024-06-02T06:34:38] Estimation window: 2012-04-18 - 2016-04-08, Best order: (5, 0, 4)-(1, 1), AIC: -6.84382872429462, Final model converged
+[2024-06-02T06:34:57] Estimation window: 2012-04-19 - 2016-04-11, Best order: (5, 0, 5)-(1, 1), AIC: -6.85788970246272, Final model converged
+[2024-06-02T06:35:15] Estimation window: 2012-04-20 - 2016-04-12, Best order: (5, 0, 3)-(1, 1), AIC: -6.83928674946634, Final model converged
+[2024-06-02T06:35:35] Estimation window: 2012-04-23 - 2016-04-13, Best order: (5, 0, 3)-(1, 1), AIC: -6.85902392094873, Final model converged
+[2024-06-02T06:35:53] Estimation window: 2012-04-24 - 2016-04-14, Best order: (5, 0, 4)-(1, 1), AIC: -6.8435394564368, Final model converged
+[2024-06-02T06:36:12] Estimation window: 2012-04-25 - 2016-04-15, Best order: (5, 0, 5)-(1, 1), AIC: -6.86234019119154, Final model converged
+[2024-06-02T06:36:30] Estimation window: 2012-04-26 - 2016-04-18, Best order: (5, 0, 4)-(1, 1), AIC: -6.84581373505323, Final model FAILED to converge
+[2024-06-02T06:36:48] Estimation window: 2012-04-27 - 2016-04-19, Best order: (5, 0, 5)-(1, 1), AIC: -6.86190786133814, Final model FAILED to converge
+[2024-06-02T06:37:06] Estimation window: 2012-04-30 - 2016-04-20, Best order: (4, 0, 5)-(1, 1), AIC: -6.84799953312986, Final model converged
+[2024-06-02T06:37:24] Estimation window: 2012-05-01 - 2016-04-21, Best order: (5, 0, 5)-(1, 1), AIC: -6.85374214012071, Final model converged
+[2024-06-02T06:37:41] Estimation window: 2012-05-02 - 2016-04-22, Best order: (5, 0, 1)-(1, 1), AIC: -6.85120800425172, Final model converged
+[2024-06-02T06:37:58] Estimation window: 2012-05-03 - 2016-04-25, Best order: (3, 0, 3)-(1, 1), AIC: -6.86169230916258, Final model converged
+[2024-06-02T06:38:19] Estimation window: 2012-05-04 - 2016-04-26, Best order: (5, 0, 5)-(1, 1), AIC: -6.89669926729432, Final model converged
+[2024-06-02T06:38:35] Estimation window: 2012-05-07 - 2016-04-27, Best order: (1, 0, 1)-(1, 1), AIC: -6.86526254687423, Final model converged
+[2024-06-02T06:38:53] Estimation window: 2012-05-08 - 2016-04-28, Best order: (3, 0, 3)-(1, 1), AIC: -6.86931186946021, Final model converged
+[2024-06-02T06:39:20] Estimation window: 2012-05-09 - 2016-04-29, Best order: (5, 0, 5)-(1, 1), AIC: -6.85360444814885, Final model FAILED to converge
+[2024-06-02T06:39:38] Estimation window: 2012-05-10 - 2016-05-02, Best order: (3, 0, 3)-(1, 1), AIC: -6.86095835292768, Final model converged
+[2024-06-02T06:40:09] Estimation window: 2012-05-11 - 2016-05-03, Best order: (5, 0, 4)-(1, 1), AIC: -6.8560865697123, Final model converged
+[2024-06-02T06:40:26] Estimation window: 2012-05-14 - 2016-05-04, Best order: (5, 0, 4)-(1, 1), AIC: -6.86952532397903, Final model converged
+[2024-06-02T06:40:45] Estimation window: 2012-05-15 - 2016-05-05, Best order: (5, 0, 5)-(1, 1), AIC: -6.8886010759325, Final model converged
+[2024-06-02T06:41:02] Estimation window: 2012-05-16 - 2016-05-06, Best order: (5, 0, 4)-(1, 1), AIC: -6.85103886889868, Final model converged
+[2024-06-02T06:41:20] Estimation window: 2012-05-17 - 2016-05-09, Best order: (4, 0, 5)-(1, 1), AIC: -6.87730135216257, Final model converged
+[2024-06-02T06:41:38] Estimation window: 2012-05-18 - 2016-05-10, Best order: (3, 0, 2)-(1, 1), AIC: -6.86169399249457, Final model converged
+[2024-06-02T06:41:56] Estimation window: 2012-05-21 - 2016-05-11, Best order: (4, 0, 5)-(1, 1), AIC: -6.8810332131481, Final model FAILED to converge
+[2024-06-02T06:42:14] Estimation window: 2012-05-22 - 2016-05-12, Best order: (4, 0, 3)-(1, 1), AIC: -6.86187772245476, Final model converged
+[2024-06-02T06:42:32] Estimation window: 2012-05-23 - 2016-05-13, Best order: (5, 0, 4)-(1, 1), AIC: -6.86426070777338, Final model converged
+[2024-06-02T06:42:50] Estimation window: 2012-05-24 - 2016-05-16, Best order: (5, 0, 4)-(1, 1), AIC: -6.86065336847666, Final model converged
+[2024-06-02T06:43:23] Estimation window: 2012-05-25 - 2016-05-17, Best order: (5, 0, 3)-(1, 1), AIC: -6.85289978820605, Final model converged
+[2024-06-02T06:43:41] Estimation window: 2012-05-29 - 2016-05-18, Best order: (5, 0, 5)-(1, 1), AIC: -6.87903002493139, Final model converged
+[2024-06-02T06:43:57] Estimation window: 2012-05-30 - 2016-05-19, Best order: (5, 0, 5)-(1, 1), AIC: -6.87190778937839, Final model converged
+[2024-06-02T06:44:14] Estimation window: 2012-05-31 - 2016-05-20, Best order: (4, 0, 4)-(1, 1), AIC: -6.86366877300419, Final model converged
+[2024-06-02T06:44:39] Estimation window: 2012-06-01 - 2016-05-23, Best order: (5, 0, 5)-(1, 1), AIC: -6.8648103671384, Final model converged
+[2024-06-02T06:44:55] Estimation window: 2012-06-04 - 2016-05-24, Best order: (4, 0, 3)-(1, 1), AIC: -6.87409472901186, Final model converged
+[2024-06-02T06:45:10] Estimation window: 2012-06-05 - 2016-05-25, Best order: (5, 0, 3)-(1, 1), AIC: -6.89096148483463, Final model converged
+[2024-06-02T06:45:26] Estimation window: 2012-06-06 - 2016-05-26, Best order: (4, 0, 4)-(1, 1), AIC: -6.87121290818263, Final model converged
+[2024-06-02T06:45:42] Estimation window: 2012-06-07 - 2016-05-27, Best order: (5, 0, 3)-(1, 1), AIC: -6.87468174758366, Final model converged
+[2024-06-02T06:45:58] Estimation window: 2012-06-08 - 2016-05-31, Best order: (5, 0, 4)-(1, 1), AIC: -6.86680980735107, Final model converged
+[2024-06-02T06:46:14] Estimation window: 2012-06-11 - 2016-06-01, Best order: (5, 0, 4)-(1, 1), AIC: -6.87162324647992, Final model converged
+[2024-06-02T06:46:30] Estimation window: 2012-06-12 - 2016-06-02, Best order: (4, 0, 5)-(1, 1), AIC: -6.87454914144321, Final model converged
+[2024-06-02T06:46:47] Estimation window: 2012-06-13 - 2016-06-03, Best order: (5, 0, 5)-(1, 1), AIC: -6.88933413822798, Final model converged
+[2024-06-02T06:47:04] Estimation window: 2012-06-14 - 2016-06-06, Best order: (5, 0, 5)-(1, 1), AIC: -6.90661056091606, Final model converged
+[2024-06-02T06:47:20] Estimation window: 2012-06-15 - 2016-06-07, Best order: (3, 0, 4)-(1, 1), AIC: -6.90156671691907, Final model converged
+[2024-06-02T06:47:36] Estimation window: 2012-06-18 - 2016-06-08, Best order: (5, 0, 4)-(1, 1), AIC: -6.90452969678635, Final model converged
+[2024-06-02T06:47:52] Estimation window: 2012-06-19 - 2016-06-09, Best order: (5, 0, 5)-(1, 1), AIC: -6.91663853412423, Final model converged
+[2024-06-02T06:48:09] Estimation window: 2012-06-20 - 2016-06-10, Best order: (5, 0, 3)-(1, 1), AIC: -6.88022905691631, Final model converged
+[2024-06-02T06:48:25] Estimation window: 2012-06-21 - 2016-06-13, Best order: (4, 0, 5)-(1, 1), AIC: -6.87543789149085, Final model converged
+[2024-06-02T06:48:41] Estimation window: 2012-06-22 - 2016-06-14, Best order: (5, 0, 5)-(1, 1), AIC: -6.90827841173633, Final model converged
+[2024-06-02T06:48:57] Estimation window: 2012-06-25 - 2016-06-15, Best order: (5, 0, 3)-(1, 1), AIC: -6.89645484702388, Final model converged
