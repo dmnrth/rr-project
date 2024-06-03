@@ -2,7 +2,7 @@ import pandas as pd
 import numpy as np
 
 from rds2py import read_rds
-from sklearn.metrics import mean_absolute_error, mean_squared_error, mean_absolute_percentage_error
+from sklearn.metrics import mean_absolute_error, mean_squared_error
 
 from datetime import datetime
 import os
@@ -10,6 +10,7 @@ import math
 
 import warnings
 warnings.filterwarnings("ignore", category=FutureWarning)
+warnings.filterwarnings("ignore", category=RuntimeWarning)
 
 def get_position(df):
     df['position'] = np.nan
@@ -20,7 +21,7 @@ def get_position(df):
 
         else:
             if np.sign(df['forecast'].iloc[i+1])==np.sign(df['forecast'].iloc[i]):
-                df['position'].iloc[i] = df['position'].iloc[i]
+                df['position'].iloc[i] = df['position'].iloc[i-1]
 
             elif np.sign(df['forecast'].iloc[i + 1])==1:
                 df['position'].iloc[i] = 1
@@ -41,10 +42,6 @@ def mse(actual_values, predicted_values):
 def rmse(actual_values, predicted_values):
     rmse = np.sqrt(mean_squared_error(actual_values, predicted_values))
     return rmse
-
-# def mean_absolute_percentage_error(actual_values, predicted_values): 
-#     mape = mean_absolute_percentage_error(actual_values, predicted_values)
-#     return mape
 
 def mean_absolute_percentage_error(y_true, y_pred):
     y_true, y_pred = np.array(y_true), np.array(y_pred)
@@ -112,53 +109,43 @@ def IR2(tab):
         return licznik / mianownik
 
 def cases_df(FORECASTS_BC_SA, df_SnP500_lr, case_1):
-    df_case_strat = pd.DataFrame(columns=case_1, index=FORECASTS_BC_SA[case_1[1]].index)
+    df_case_strat = pd.DataFrame(columns=case_1, index=FORECASTS_BC_SA['arima-garch_base_case'].index)
 
     for strat in case_1:
 
         res = pd.DataFrame()
 
         res['forecast'] = FORECASTS_BC_SA[strat]
-        res['SnP500_lr'] = df_SnP500_lr[FORECASTS_BC_SA[strat].index[0]:]
+        res['SnP500_lr'] = df_SnP500_lr.loc[FORECASTS_BC_SA['arima-garch_base_case'].index]
         res['SnP500_lr'] = np.exp(res['SnP500_lr'])-1 # converting to simple returns
 
         res = get_position(res)
+        res = res[~res.index.duplicated(keep=False)]
 
         strategy = (res['SnP500_lr'] * res['position'].shift(1))
         strategy = (1+strategy.fillna(0)).cumprod()
-
+        
         df_case_strat[strat] = strategy
         df_case_strat[f'{strat}_forecast'] = res['forecast']
 
-    df_case_strat['buy_n_hold'] = (1 + res['SnP500_lr'].fillna(0)).cumprod()
-    df_case_strat['buy_n_hold_forecast'] = res['SnP500_lr']
-
+        if strat == 'arima-garch_base_case':
+            df_case_strat['buy_n_hold'] = (1 + res['SnP500_lr'].fillna(0)).cumprod()
+            df_case_strat['buy_n_hold_forecast'] = res['SnP500_lr']
+        
     case_1.append('buy_n_hold')
 
     return df_case_strat, case_1
 
 def performance_metrics_case_1(STRING_1, STRING_2, df, case):
 
-    try:
-        buy_n_hold = df[case[-1]]
-        buy_n_hold_forecast = df[f'{case[-1]}_forecast']
-    except TypeError:
-        buy_n_hold = None
-        buy_n_hold_forecast = None
+    buy_n_hold = df[case[-1]]
+    buy_n_hold_forecast = df[f'{case[-1]}_forecast']
 
-    try:
-        strat_1 = df[case[0]]
-        strat_1_forecast = df[f'{case[0]}_forecast']
-    except TypeError:
-        strat_1 = None
-        strat_1_forecast = None
+    strat_1 = df[case[0]]
+    strat_1_forecast = df[f'{case[0]}_forecast']
 
-    try:
-        strat_2 = df[case[1]]
-        strat_2_forecast = df[f'{case[1]}_forecast']
-    except TypeError:
-        strat_2 = None
-        strat_2_forecast = None
+    strat_2 = df[case[1]]
+    strat_2_forecast = df[f'{case[1]}_forecast']
     
     df_data = {
 
@@ -250,33 +237,17 @@ def performance_metrics_case_1(STRING_1, STRING_2, df, case):
 
 def performance_metrics_case_2(STRING_1, STRING_2, STRING_3, df, case):
 
-    try:
-        buy_n_hold = df[case[-1]]
-        buy_n_hold_forecast = df[f'{case[-1]}_forecast']
-    except TypeError:
-        buy_n_hold = None
-        buy_n_hold_forecast = None
+    buy_n_hold = df[case[-1]]
+    buy_n_hold_forecast = df[f'{case[-1]}_forecast']
 
-    try:
-        strat_1 = df[case[0]]
-        strat_1_forecast = df[f'{case[0]}_forecast']
-    except TypeError:
-        strat_1 = None
-        strat_1_forecast = None
+    strat_1 = df[case[0]]
+    strat_1_forecast = df[f'{case[0]}_forecast']
 
-    try:
-        strat_2 = df[case[1]]
-        strat_2_forecast = df[f'{case[1]}_forecast']
-    except TypeError:
-        strat_2 = None
-        strat_2_forecast = None
+    strat_2 = df[case[1]]
+    strat_2_forecast = df[f'{case[1]}_forecast']
 
-    try:
-        strat_3 = df[case[2]]
-        strat_3_forecast = df[f'{case[2]}_forecast']
-    except TypeError:
-        strat_3 = None
-        strat_3_forecast = None
+    strat_3 = df[case[2]]
+    strat_3_forecast = df[f'{case[2]}_forecast']
     
     df_data = {
 
@@ -386,6 +357,159 @@ def performance_metrics_case_2(STRING_1, STRING_2, STRING_3, df, case):
         df_data["IR**(%)"].append(round(IR2(strat_3)*100, 2))
 
     df_perf_metr = pd.DataFrame(data=df_data, index=["","","",""])
+
+    return df_perf_metr
+
+
+def performance_metrics_case_3__4(STRING_1, STRING_2, STRING_3, STRING_4, df, case):
+
+    buy_n_hold = df[case[-1]]
+    buy_n_hold_forecast = df[f'{case[-1]}_forecast']
+
+    strat_1 = df[case[0]]
+    strat_1_forecast = df[f'{case[0]}_forecast']
+
+    strat_2 = df[case[1]]
+    strat_2_forecast = df[f'{case[1]}_forecast']
+
+    strat_3 = df[case[2]]
+    strat_3_forecast = df[f'{case[2]}_forecast']
+
+    strat_4 = df[case[3]]
+    strat_4_forecast = df[f'{case[3]}_forecast']
+
+    
+    df_data = {
+
+    "": ["S&P 500", STRING_1, STRING_2, STRING_3, STRING_4],
+    "MAE": [],
+    "MSE": [],
+    "RMSE": [],
+    "MAPE": [],
+
+    "ARC(%)": [],
+    "ASD(%)": [],
+    "MD": [],
+    "IR*(%)": [],
+    "IR**(%)": [],
+    }
+
+    if isinstance(buy_n_hold, str) or buy_n_hold is None:
+        df_data["MAE"].append(None)
+        df_data["MSE"].append(None)
+        df_data["RMSE"].append(None)
+        df_data["MAPE"].append(None)
+
+        df_data["ARC(%)"].append(None)
+        df_data["ASD(%)"].append(None)
+        df_data["MD"].append(None)
+        df_data["IR*(%)"].append(None)
+        df_data["IR**(%)"].append(None)
+    else:
+        df_data["MAE"].append(None)
+        df_data["MSE"].append(None)
+        df_data["RMSE"].append(None)
+        df_data["MAPE"].append(None)
+
+        df_data["ARC(%)"].append(round(ARC(buy_n_hold), 2))
+        df_data["ASD(%)"].append(round(ASD(buy_n_hold), 2))
+        df_data["MD"].append(round(MaximumDrawdown(buy_n_hold), 2))
+        df_data["IR*(%)"].append(round(IR1(buy_n_hold)*100, 2))
+        df_data["IR**(%)"].append(round(IR2(buy_n_hold)*100, 2))
+
+    if isinstance(strat_1, str) or strat_1 is None:
+        df_data["MAE"].append(None)
+        df_data["MSE"].append(None)
+        df_data["RMSE"].append(None)
+        df_data["MAPE"].append(None)
+    
+        df_data["ARC(%)"].append(None)
+        df_data["ASD(%)"].append(None)
+        df_data["MD"].append(None)
+        df_data["IR*(%)"].append(None)
+        df_data["IR**(%)"].append(None)
+    else:
+        df_data["MAE"].append(format(mae(buy_n_hold_forecast,strat_1_forecast), ".2e"))
+        df_data["MSE"].append(format(mse(buy_n_hold_forecast,strat_1_forecast), ".2e"))
+        df_data["RMSE"].append(format(rmse(buy_n_hold_forecast,strat_1_forecast), ".2e"))
+        df_data["MAPE"].append(format(mean_absolute_percentage_error(buy_n_hold_forecast,strat_1_forecast), ".2e"))
+
+        df_data["ARC(%)"].append(round(ARC(strat_1), 2))
+        df_data["ASD(%)"].append(round(ASD(strat_1), 2))
+        df_data["MD"].append(round(MaximumDrawdown(strat_1), 2))
+        df_data["IR*(%)"].append(round(IR1(strat_1)*100, 2))
+        df_data["IR**(%)"].append(round(IR2(strat_1)*100, 2))
+
+    if isinstance(strat_2, str) or strat_2 is None:
+        df_data["MAE"].append(None)
+        df_data["MSE"].append(None)
+        df_data["RMSE"].append(None)
+        df_data["MAPE"].append(None)
+
+        df_data["ARC(%)"].append(None)
+        df_data["ASD(%)"].append(None)
+        df_data["MD"].append(None)
+        df_data["IR*(%)"].append(None)
+        df_data["IR**(%)"].append(None)
+    else:
+        df_data["MAE"].append(format(mae(buy_n_hold_forecast,strat_2_forecast), ".2e"))
+        df_data["MSE"].append(format(mse(buy_n_hold_forecast,strat_2_forecast), ".2e"))
+        df_data["RMSE"].append(format(rmse(buy_n_hold_forecast,strat_2_forecast), ".2e"))
+        df_data["MAPE"].append(format(mean_absolute_percentage_error(buy_n_hold_forecast,strat_2_forecast), ".2e"))
+
+        df_data["ARC(%)"].append(round(ARC(strat_2), 2))
+        df_data["ASD(%)"].append(round(ASD(strat_2), 2))
+        df_data["MD"].append(round(MaximumDrawdown(strat_2), 2))
+        df_data["IR*(%)"].append(round(IR1(strat_2)*100, 2))
+        df_data["IR**(%)"].append(round(IR2(strat_2)*100, 2))
+
+    if isinstance(strat_3, str) or strat_3 is None:
+        df_data["MAE"].append(None)
+        df_data["MSE"].append(None)
+        df_data["RMSE"].append(None)
+        df_data["MAPE"].append(None)
+
+        df_data["ARC(%)"].append(None)
+        df_data["ASD(%)"].append(None)
+        df_data["MD"].append(None)
+        df_data["IR*(%)"].append(None)
+        df_data["IR**(%)"].append(None)
+    else:
+        df_data["MAE"].append(format(mae(buy_n_hold_forecast,strat_3_forecast), ".2e"))
+        df_data["MSE"].append(format(mse(buy_n_hold_forecast,strat_3_forecast), ".2e"))
+        df_data["RMSE"].append(format(rmse(buy_n_hold_forecast,strat_3_forecast), ".2e"))
+        df_data["MAPE"].append(format(mean_absolute_percentage_error(buy_n_hold_forecast,strat_3_forecast), ".2e"))
+
+        df_data["ARC(%)"].append(round(ARC(strat_3), 2))
+        df_data["ASD(%)"].append(round(ASD(strat_3), 2))
+        df_data["MD"].append(round(MaximumDrawdown(strat_3), 2))
+        df_data["IR*(%)"].append(round(IR1(strat_3)*100, 2))
+        df_data["IR**(%)"].append(round(IR2(strat_3)*100, 2))
+
+    if isinstance(strat_4, str) or strat_4 is None:
+            df_data["MAE"].append(None)
+            df_data["MSE"].append(None)
+            df_data["RMSE"].append(None)
+            df_data["MAPE"].append(None)
+
+            df_data["ARC(%)"].append(None)
+            df_data["ASD(%)"].append(None)
+            df_data["MD"].append(None)
+            df_data["IR*(%)"].append(None)
+            df_data["IR**(%)"].append(None)
+    else:
+        df_data["MAE"].append(format(mae(buy_n_hold_forecast,strat_4_forecast), ".2e"))
+        df_data["MSE"].append(format(mse(buy_n_hold_forecast,strat_4_forecast), ".2e"))
+        df_data["RMSE"].append(format(rmse(buy_n_hold_forecast,strat_4_forecast), ".2e"))
+        df_data["MAPE"].append(format(mean_absolute_percentage_error(buy_n_hold_forecast,strat_4_forecast), ".2e"))
+
+        df_data["ARC(%)"].append(round(ARC(strat_4), 2))
+        df_data["ASD(%)"].append(round(ASD(strat_4), 2))
+        df_data["MD"].append(round(MaximumDrawdown(strat_4), 2))
+        df_data["IR*(%)"].append(round(IR1(strat_4)*100, 2))
+        df_data["IR**(%)"].append(round(IR2(strat_4)*100, 2))
+
+    df_perf_metr = pd.DataFrame(data=df_data, index=["","","","",""])
 
     return df_perf_metr
 
