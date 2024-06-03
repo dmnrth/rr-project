@@ -129,5 +129,12 @@ Saving data and deleting unnecessary objects
 saveRDS(sp500_log_returns,
         file = "input/sp500_log_returns.rds")
 
+saveRDS(sp500_prices,
+        file = "input/sp500_prices.rds")
+
+
+saveRDS(sp500_simple_returns,
+        file = "input/sp500_simple_returns.rds")
+
 rm(list = ls())
 ```
