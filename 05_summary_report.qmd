@@ -4,6 +4,10 @@ date: 2024-06-02
 format:  
   html:
     theme: lumen
+    code-fold: true
+    code-summary: "See code"
+execute:
+  echo: false
 ---
 
 # Summary report
@@ -85,10 +89,10 @@ csv_file_path <- "input/Descriptive_statics_source_article.csv"
 
 data <- read.csv(file=csv_file_path, sep= ";")
 
-print(data)
+datatable(data)
 ```
 
-## Conclusion
+### Conclusion
 
 The tables presented in the images show descriptive statistics of the S&P 500 adjusted prices and log returns. The first table is produced by our group, and the second table is sourced from an article that we based our research on.
 
@@ -110,6 +114,186 @@ Below are listed functions we have defined for our research purposes.
 
 # Results comparison and final conclusions
 
-Poczekać na kamila
+```{r}
+csv_file_path <- "output/backtesting_output/performance_metrics/pm_case_1.csv"
+
+data <- read.csv(file=csv_file_path, sep= ",",colClasses=c("NULL",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA),)
+
+datatable(data)
+```
+
+```{r}
+csv_file_path <- "output/backtesting_output/performance_metrics/pm_case_2.csv"
+
+data <- read.csv(file=csv_file_path, sep= ",",colClasses=c("NULL",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA))
+
+datatable(data)
+```
+
+```{r}
+csv_file_path <- "output/backtesting_output/performance_metrics/pm_case_3.csv"
+
+data <- read.csv(file=csv_file_path, sep= ",",colClasses=c("NULL",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA),)
+
+datatable(data)
+```
+
+```{r}
+csv_file_path <- "output/backtesting_output/performance_metrics/pm_case_4.csv"
+
+data <- read.csv(file=csv_file_path, sep= ",",colClasses=c("NULL",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA),)
+
+datatable(data)
+```
+
+```{r Case_1, fig.cap="Equity curves of ARIMA(p,1,q) & ARIMA(p,1,q)-SGARCH(1,1).", fig.width=12, fig.height=5, results='hide'}
+library(ggplot2) 
+
+df_case_strat_case_1 <- read.csv('./output/backtesting_output/equity_lines/case_1.csv')
+df_case_strat_case_1 <- data.frame(df_case_strat_case_1)
+
+plot_case_1 <- ggplot() +
+  geom_line(data = df_case_strat_case_1, aes(x = as.Date(X), y = buy_n_hold, color = "S&P 500")) +
+  geom_line(data = df_case_strat_case_1, aes(x = as.Date(X), y = arima_base_case, color = "ARIMA 1000")) +
+  geom_line(data = df_case_strat_case_1, aes(x = as.Date(X), y = arima.garch_base_case, color = "SGARCH.GED 1000")) +
+  
+  scale_color_manual(values = c("S&P 500" = "darkorange", "ARIMA 1000" = "darkblue", "SGARCH.GED 1000" = "darkgreen"),
+                     name = 'Strategy') +
+  
+  theme(
+    legend.position = c(.02, .98),
+    legend.justification = c("left", "top"),
+    legend.box.just = "left",
+    legend.margin = margin(1, 1, 1, 1),
+    legend.background = element_blank(),
+    legend.box.background = element_rect(colour = "black"),
+    legend.title = element_blank(), 
+    legend.spacing.y = unit(0, "mm")
+  ) +
+  ylab('Equity')
+
+plot_case_1
+
+```
+
+```{r Case_2, fig.cap="Equity curves of ARIMA(p,1,q) & ARIMA(p,1,q)-EGARCH(1,1).", fig.width=12, fig.height=5, results='hide'}
+library(ggplot2) 
+
+df_case_strat_case_2 <- read.csv('./output/backtesting_output/equity_lines/case_2.csv')
+df_case_strat_case_2 <- data.frame(df_case_strat_case_2)
+
+plot_case_2 <- ggplot() +
+  geom_line(data = df_case_strat_case_2, aes(x = as.Date(X), y = buy_n_hold, color = "S&P 500")) +
+  geom_line(data = df_case_strat_case_2, aes(x = as.Date(X), y = arima_base_case, color = "ARIMA 1000")) +
+  geom_line(data = df_case_strat_case_2, aes(x = as.Date(X), y = arima.garch_base_case, color = "SGARCH.GED 1000")) +
+  geom_line(data = df_case_strat_case_2, aes(x = as.Date(X), y = arima.egarch_ged_1000, color = "EGARCH.GED 1000")) +
+  
+  scale_color_manual(values = c("S&P 500" = "darkorange", "ARIMA 1000" = "darkblue", "SGARCH.GED 1000" = "darkgreen", "EGARCH.GED 1000" = "darkred"),
+                     name = 'Strategy') +
+  
+  theme(
+    legend.position = c(.02, .98),
+    legend.justification = c("left", "top"),
+    legend.box.just = "left",
+    legend.margin = margin(1, 1, 1, 1),
+    legend.background = element_blank(),
+    legend.box.background = element_rect(colour = "black"),
+    legend.title = element_blank(), 
+    legend.spacing.y = unit(0, "mm")
+  ) +
+  ylab('Equity')
+
+plot_case_2
+
+```
+
+```{r Case_3, fig.cap="Equity curves of ARIMA(p,1,q)-SGARCH(1,1) with different window sizes.", fig.width=12, fig.height=5, results='hide'}
+library(ggplot2) 
+
+df_case_strat_case_3 <- read.csv('./output/backtesting_output/equity_lines/case_3.csv')
+df_case_strat_case_3 <- data.frame(df_case_strat_case_3)
+
+plot_case_2 <- ggplot() +
+  geom_line(data = df_case_strat_case_3, aes(x = as.Date(X), y = buy_n_hold, color = "S&P 500")) +
+  geom_line(data = df_case_strat_case_3, aes(x = as.Date(X), y = arima_base_case, color = "ARIMA 1000")) +
+  geom_line(data = df_case_strat_case_3, aes(x = as.Date(X), y = arima.sgarch_ged_500, color = "SGARCH.GED 500")) +
+  geom_line(data = df_case_strat_case_3, aes(x = as.Date(X), y = arima.garch_base_case, color = "SGARCH.GED 1000")) +
+  geom_line(data = df_case_strat_case_3, aes(x = as.Date(X), y = arima.sgarch_ged_1500, color = "SGARCH.GED 1500")) +
+  
+  scale_color_manual(values = c("S&P 500" = "darkorange", "ARIMA 1000" = "darkblue", "SGARCH.GED 500" = "darkgreen", "SGARCH.GED 1000" = "darkred", "SGARCH.GED 1500" = "pink"),
+                     name = 'Strategy') +
+  
+  theme(
+    legend.position = c(.02, .98),
+    legend.justification = c("left", "top"),
+    legend.box.just = "left",
+    legend.margin = margin(1, 1, 1, 1),
+    legend.background = element_blank(),
+    legend.box.background = element_rect(colour = "black"),
+    legend.title = element_blank(), 
+    legend.spacing.y = unit(0, "mm")
+  ) +
+  ylab('Equity')
+
+plot_case_2
+
+```
+
+```{r Case_4, fig.cap="Equity curves of all hybrid models with different distributions.", fig.width=12, fig.height=5, results='hide'}
+library(ggplot2) 
+
+df_case_strat_case_4 <- read.csv('./output/backtesting_output/equity_lines/case_4.csv')
+df_case_strat_case_4 <- data.frame(df_case_strat_case_4)
+
+plot_case_4 <- ggplot() +
+  geom_line(data = df_case_strat_case_4, aes(x = as.Date(X), y = buy_n_hold, color = "S&P 500")) +
+  geom_line(data = df_case_strat_case_4, aes(x = as.Date(X), y = arima_base_case, color = "ARIMA 1000")) +
+  geom_line(data = df_case_strat_case_4, aes(x = as.Date(X), y = arima.garch_base_case, color = "SGARCH.GED 1000")) +
+  geom_line(data = df_case_strat_case_4, aes(x = as.Date(X), y = arima.sgarch_snorm_1000, color = "SGARCH.SNORM 1000")) +
+  geom_line(data = df_case_strat_case_4, aes(x = as.Date(X), y = arima.sgarch_sstd_1000, color = "SGARCH.SSTD 1000")) +
+  geom_line(data = df_case_strat_case_4, aes(x = as.Date(X), y = arima.sgarch_sged_1000, color = "SGARCH.SGED 1000")) +
+  
+  scale_color_manual(values = c("S&P 500" = "darkorange", "ARIMA 1000" = "darkblue", "SGARCH.GED 1000" = "darkgreen", "SGARCH.SNORM 1000" = "darkred", "SGARCH.SSTD 1000" = "pink", "SGARCH.SGED 1000" = "black"),
+                     name = 'Strategy') +
+  
+  theme(
+    legend.position = c(.02, .98),
+    legend.justification = c("left", "top"),
+    legend.box.just = "left",
+    legend.margin = margin(1, 1, 1, 1),
+    legend.background = element_blank(),
+    legend.box.background = element_rect(colour = "black"),
+    legend.title = element_blank(), 
+    legend.spacing.y = unit(0, "mm")
+  ) +
+  ylab('Equity')
+
+plot_case_4
+
+```
 
 # Problems encountered
+
+## Time series order
+
+in article it was specified that log returns of S&P500 are forecasted. In further parts author mentions using model ARIMA(p,1,q) suggesting that original time series was integrated of order 1 - meaning that they were differenced once. Additionally there were parts where model ARMA was mentioned - with no integration.
+
+### Our solution
+
+From our point of view there is no reason to difference time series that were converted to log returns - plots of log returns suggest stationary time series, no tests were provided for stationarity of time series in the article. For our models we used log returns of S&P500
+
+## Computational efficiency
+
+In the artcle the best model was chosen based on AIC. In order to choose best p and q orders - 35 models were fitted. One step ahead forecasts were calculated for period between 20 December 2005 and 30 December 2019 - 3530 forecast vectors. In total foracasting using one models means checking 35\*3530 = 123.550 models. Additionally, eight different forecasts were made using various models.
+
+### Our solution
+
+In our notebooks we implemented parallel computing to be able to use multiple cores at which significantly speed up our calculations.
+
+## Convergence problem
+
+While running multiple models, we encountered an issue with the rugarch package. During the fitting and forecasting loops, the process was interrupted due to convergence problems. This issue caused our joobs to break.
+
+### Our solution
+
+To deal with this issue we used many tryCatch expressions, Having encountered predefined errors tryCatch would either skip the loop iteration or return NA, preventing the job from breaking completely. Additionally, we generated log files to track the errors.
