@@ -2,7 +2,7 @@ import pandas as pd
 import numpy as np
 
 from rds2py import read_rds
-from sklearn.metrics import mean_absolute_error, mean_squared_error
+from sklearn.metrics import mean_absolute_error, mean_squared_error, mean_absolute_percentage_error
 
 from datetime import datetime
 import os
@@ -42,6 +42,10 @@ def mse(actual_values, predicted_values):
 def rmse(actual_values, predicted_values):
     rmse = np.sqrt(mean_squared_error(actual_values, predicted_values))
     return rmse
+
+# def mean_absolute_percentage_error(y_true, y_pred):
+#     mape = mean_absolute_percentage_error(y_true, y_pred)
+#     return mape
 
 def mean_absolute_percentage_error(y_true, y_pred):
     y_true, y_pred = np.array(y_true), np.array(y_pred)
