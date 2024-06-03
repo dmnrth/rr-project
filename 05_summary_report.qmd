@@ -1,6 +1,9 @@
 ---
 title: 05 summary Report
 date: 2024-06-02
+format:  
+  html:
+    theme: lumen
 ---
 
 # Summary report
@@ -8,7 +11,7 @@ date: 2024-06-02
 Loading required packages
 
 ```{r}
-packages <- c("xts", "DT", 'tidyverse', 'patchwork')
+packages <- c("xts", "DT", 'tidyverse', 'patchwork', "moments")
 
 for (package in packages) {
   if (!require(package, character.only = TRUE)) {
@@ -20,26 +23,27 @@ for (package in packages) {
 
 # Aim of the study
 
-We based our research on the article Applying Hybrid ARIMA-SGARCH in Algorithmic Investment Strategies on S&P500 Index by Nguyen Vo and Robert Slepaczuk.
+We based our research on the article **Applying Hybrid ARIMA-SGARCH in Algorithmic Investment Strategies on S&P500 Index** by Nguyen Vo and Robert Slepaczuk.
 
 Our study aims to evaluate and compare the effectiveness of the ARIMA model and its hybrid combinations with GARCH family models (specifically SGARCH and EGARCH) in forecasting the log returns of the S&P500 index. The research utilizes daily data from Yahoo Finance, spanning from January 1, 2000, to December 31, 2019. Through a rolling window approach, the study investigates whether these hybrid models can better capture the time-series characteristics and offer superior predictive power compared to the standalone ARIMA model. The models are assessed based on their forecasting accuracy (using metrics such as MAE, MAPE, RMSE) and performance (including annualized return, annualized standard deviation, maximum drawdown, information ratio, and adjusted information ratio). The findings indicate that the hybrid models significantly outperform the ARIMA model and the Buy&Hold strategy over the long term, with results remaining robust across different window sizes, distribution types, and GARCH model variations.
 
-# Outline
+# Framework of our research
 
-Our research was divided into five parts, each documented in a separate notebook. In the first notebook, we focused on downloading S&P 500 data. The second notebook was dedicated to estimating ARIMA models. In the third notebook, we conducted sensitivity analysis. The fourth notebook**... \[missing information\].** Finally, in the fifth notebook, we provided a comprehensive summary of our findings and compared our results with those presented in the source article that served as the basis for our research.
+Our research was divided into five parts, each documented in a separate notebook. In the first notebook, we focused on downloading S&P 500 data. The second notebook was dedicated to estimating ARIMA models. In the third notebook, we conducted sensitivity analysis. The fourth notebook is focused on calculating equity line and performance metrics for base case and performing sensitivity analysis. Finally, in the fifth notebook, we provided a comprehensive summary of our findings and compared our results with those presented in the source article that served as the basis for our research.
 
-# Data source
+# Data Collection for S&P 500 Index
 
-opisac skąd mamay dane a skąd my mamy Loading S&P500 price data
+We collected historical data for the S&P 500 index from Yahoo Finance to ensure a reliable basis for our hybrid ARIMA-GARCH model analysis. The data spans from January 1, 2000, to December 31, 2019. Using the quantmod package in R, we downloaded the adjusted closing prices. From these, we calculated both logarithmic returns and simple returns to prepare the dataset for model fitting and forecasting.
 
 ```{r}
 sp500_prices <- readRDS("input/sp500_prices.rds")
 sp500_simple_returns <- readRDS("input/sp500_simple_returns.rds")
+sp500_log_returns <- readRDS("input/sp500_log_returns.rds")
 ```
 
 # Statistics
 
-tabelka ze statyskykami z artykułu i napisaćco sie zgadza 
+## Our results
 
 ```{r}
 price_stats = tibble(SP500_prices_adj = as.numeric(sp500_prices)) %>% 
@@ -74,6 +78,8 @@ tibble(statistic = colnames(ret_stats), SP500_prices_adj = round(as.numeric(pric
   formatRound(columns = c('SP500_prices_adj','SP500_Log_Returns'), digits = 4)
 ```
 
+## Results from the article
+
 ```{r}
 csv_file_path <- "input/Descriptive_statics_source_article.csv"
 
@@ -82,10 +88,28 @@ data <- read.csv(file=csv_file_path, sep= ";")
 print(data)
 ```
 
+## Conclusion
+
 The tables presented in the images show descriptive statistics of the S&P 500 adjusted prices and log returns. The first table is produced by our group, and the second table is sourced from an article that we based our research on.
 
 Upon comparison, it is clear that there are no differences in the reported statistics between the two tables. Both sets of statistics are identical, which indicates that our results align perfectly with those from the article.
 
 The consistency between the results from our analysis and those from the article demonstrates that our analysis is accurate and reliable. This alignment confirms the robustness of our methods and calculations in deriving the descriptive statistics for the S&P 500 adjusted prices and log returns.
 
-# model estimation \# results comparison \# problems encountered
+# Model estimation
+
+Below are listed functions we have defined for our research purposes.
+
+**fit_best_arima**- This function finds and fits the best ARIMA model. It searches through different combinations of p and q orders up to 5. The function returns the best ARIMA model based on the Akaike Information Criterion (AIC) .
+
+**arima_rolling_forecast -** This function performs a rolling forecast using the best ARIMA model. It fits the best ARIMA model to each rolling window of data, and forecasts the next value. It can optionally log the process and show a progress bar.
+
+**fit_best_arima_garch -** This function finds and fits the best ARIMA-GARCH model. It searches through different combinations of p and q orders for the ARIMA model and uses a specified GARCH model (g_model) and distribution. The function returns the best ARIMA-GARCH model based on the Akaike Information Criterion (AIC).
+
+**arima_garch_rolling_forecast -** This function performs a rolling forecast using the best ARIMA-GARCH model. It fits the best ARIMA-GARCH model to each rolling window of data, and forecasts the next value. It can optionally log the process and show a progress bar. The function handles errors by attempting to refit the model with scaled data.
+
+# Results comparison and final conclusions
+
+Poczekać na kamila
+
+# Problems encountered
