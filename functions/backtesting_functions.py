@@ -2,7 +2,7 @@ import pandas as pd
 import numpy as np
 
 from rds2py import read_rds
-from sklearn.metrics import mean_absolute_error, mean_squared_error
+from sklearn.metrics import mean_absolute_error, mean_squared_error, mean_absolute_percentage_error
 
 from datetime import datetime
 import os
@@ -42,8 +42,13 @@ def rmse(actual_values, predicted_values):
     rmse = np.sqrt(mean_squared_error(actual_values, predicted_values))
     return rmse
 
-def mean_absolute_percentage_error(actual_values, predicted_values): 
-    return np.mean(np.abs((actual_values - predicted_values) / actual_values)) * 100
+# def mean_absolute_percentage_error(actual_values, predicted_values): 
+#     mape = mean_absolute_percentage_error(actual_values, predicted_values)
+#     return mape
+
+def mean_absolute_percentage_error(y_true, y_pred):
+    y_true, y_pred = np.array(y_true), np.array(y_pred)
+    return np.mean(np.abs((y_true - y_pred) / y_true)) * 100
 
 def EquityCurve_na_StopyZwrotu(tab):
 
@@ -205,10 +210,10 @@ def performance_metrics_case_1(STRING_1, STRING_2, df, case):
         df_data["IR*(%)"].append(None)
         df_data["IR**(%)"].append(None)
     else:
-        df_data["MAE"].append(round(mae(buy_n_hold_forecast,strat_1_forecast), 2))
-        df_data["MSE"].append(round(mse(buy_n_hold_forecast,strat_1_forecast), 2))
-        df_data["RMSE"].append(round(rmse(buy_n_hold_forecast,strat_1_forecast), 2))
-        df_data["MAPE"].append(round(mean_absolute_percentage_error(buy_n_hold_forecast,strat_1_forecast), 2))
+        df_data["MAE"].append(format(mae(buy_n_hold_forecast,strat_1_forecast), ".2e"))
+        df_data["MSE"].append(format(mse(buy_n_hold_forecast,strat_1_forecast), ".2e"))
+        df_data["RMSE"].append(format(rmse(buy_n_hold_forecast,strat_1_forecast), ".2e"))
+        df_data["MAPE"].append(format(mean_absolute_percentage_error(buy_n_hold_forecast,strat_1_forecast), ".2e"))
 
         df_data["ARC(%)"].append(round(ARC(strat_1), 2))
         df_data["ASD(%)"].append(round(ASD(strat_1), 2))
@@ -228,10 +233,10 @@ def performance_metrics_case_1(STRING_1, STRING_2, df, case):
         df_data["IR*(%)"].append(None)
         df_data["IR**(%)"].append(None)
     else:
-        df_data["MAE"].append(round(mae(buy_n_hold_forecast,strat_2_forecast), 2))
-        df_data["MSE"].append(round(mse(buy_n_hold_forecast,strat_2_forecast), 2))
-        df_data["RMSE"].append(round(rmse(buy_n_hold_forecast,strat_2_forecast), 2))
-        df_data["MAPE"].append(round(mean_absolute_percentage_error(buy_n_hold_forecast,strat_2_forecast), 2))
+        df_data["MAE"].append(format(mae(buy_n_hold_forecast,strat_2_forecast), ".2e"))
+        df_data["MSE"].append(format(mse(buy_n_hold_forecast,strat_2_forecast), ".2e"))
+        df_data["RMSE"].append(format(rmse(buy_n_hold_forecast,strat_2_forecast), ".2e"))
+        df_data["MAPE"].append(format(mean_absolute_percentage_error(buy_n_hold_forecast,strat_2_forecast), ".2e"))
 
         df_data["ARC(%)"].append(round(ARC(strat_2), 2))
         df_data["ASD(%)"].append(round(ASD(strat_2), 2))
@@ -323,10 +328,10 @@ def performance_metrics_case_2(STRING_1, STRING_2, STRING_3, df, case):
         df_data["IR*(%)"].append(None)
         df_data["IR**(%)"].append(None)
     else:
-        df_data["MAE"].append(round(mae(buy_n_hold_forecast,strat_1_forecast), 2))
-        df_data["MSE"].append(round(mse(buy_n_hold_forecast,strat_1_forecast), 2))
-        df_data["RMSE"].append(round(rmse(buy_n_hold_forecast,strat_1_forecast), 2))
-        df_data["MAPE"].append(round(mean_absolute_percentage_error(buy_n_hold_forecast,strat_1_forecast), 2))
+        df_data["MAE"].append(format(mae(buy_n_hold_forecast,strat_1_forecast), ".2e"))
+        df_data["MSE"].append(format(mse(buy_n_hold_forecast,strat_1_forecast), ".2e"))
+        df_data["RMSE"].append(format(rmse(buy_n_hold_forecast,strat_1_forecast), ".2e"))
+        df_data["MAPE"].append(format(mean_absolute_percentage_error(buy_n_hold_forecast,strat_1_forecast), ".2e"))
 
         df_data["ARC(%)"].append(round(ARC(strat_1), 2))
         df_data["ASD(%)"].append(round(ASD(strat_1), 2))
@@ -346,10 +351,10 @@ def performance_metrics_case_2(STRING_1, STRING_2, STRING_3, df, case):
         df_data["IR*(%)"].append(None)
         df_data["IR**(%)"].append(None)
     else:
-        df_data["MAE"].append(round(mae(buy_n_hold_forecast,strat_2_forecast), 2))
-        df_data["MSE"].append(round(mse(buy_n_hold_forecast,strat_2_forecast), 2))
-        df_data["RMSE"].append(round(rmse(buy_n_hold_forecast,strat_2_forecast), 2))
-        df_data["MAPE"].append(round(mean_absolute_percentage_error(buy_n_hold_forecast,strat_2_forecast), 2))
+        df_data["MAE"].append(format(mae(buy_n_hold_forecast,strat_2_forecast), ".2e"))
+        df_data["MSE"].append(format(mse(buy_n_hold_forecast,strat_2_forecast), ".2e"))
+        df_data["RMSE"].append(format(rmse(buy_n_hold_forecast,strat_2_forecast), ".2e"))
+        df_data["MAPE"].append(format(mean_absolute_percentage_error(buy_n_hold_forecast,strat_2_forecast), ".2e"))
 
         df_data["ARC(%)"].append(round(ARC(strat_2), 2))
         df_data["ASD(%)"].append(round(ASD(strat_2), 2))
@@ -369,10 +374,10 @@ def performance_metrics_case_2(STRING_1, STRING_2, STRING_3, df, case):
         df_data["IR*(%)"].append(None)
         df_data["IR**(%)"].append(None)
     else:
-        df_data["MAE"].append(round(mae(buy_n_hold_forecast,strat_3_forecast), 2))
-        df_data["MSE"].append(round(mse(buy_n_hold_forecast,strat_3_forecast), 2))
-        df_data["RMSE"].append(round(rmse(buy_n_hold_forecast,strat_3_forecast), 2))
-        df_data["MAPE"].append(round(mean_absolute_percentage_error(buy_n_hold_forecast,strat_3_forecast), 2))
+        df_data["MAE"].append(format(mae(buy_n_hold_forecast,strat_3_forecast), ".2e"))
+        df_data["MSE"].append(format(mse(buy_n_hold_forecast,strat_3_forecast), ".2e"))
+        df_data["RMSE"].append(format(rmse(buy_n_hold_forecast,strat_3_forecast), ".2e"))
+        df_data["MAPE"].append(format(mean_absolute_percentage_error(buy_n_hold_forecast,strat_3_forecast), ".2e"))
 
         df_data["ARC(%)"].append(round(ARC(strat_3), 2))
         df_data["ASD(%)"].append(round(ASD(strat_3), 2))
