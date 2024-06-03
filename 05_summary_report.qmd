@@ -117,7 +117,7 @@ Below are listed functions we have defined for our research purposes.
 ```{r}
 csv_file_path <- "output/backtesting_output/performance_metrics/pm_case_1.csv"
 
-data <- read.csv(file=csv_file_path, sep= ",",colClasses=c("NULL",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA),)
+data <- read.csv(file=csv_file_path, sep= ",",colClasses=c("NULL",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA),)
 
 datatable(data)
 ```
@@ -125,7 +125,7 @@ datatable(data)
 ```{r}
 csv_file_path <- "output/backtesting_output/performance_metrics/pm_case_2.csv"
 
-data <- read.csv(file=csv_file_path, sep= ",",colClasses=c("NULL",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA))
+data <- read.csv(file=csv_file_path, sep= ",",colClasses=c("NULL",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA))
 
 datatable(data)
 ```
@@ -133,7 +133,7 @@ datatable(data)
 ```{r}
 csv_file_path <- "output/backtesting_output/performance_metrics/pm_case_3.csv"
 
-data <- read.csv(file=csv_file_path, sep= ",",colClasses=c("NULL",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA),)
+data <- read.csv(file=csv_file_path, sep= ",",colClasses=c("NULL",NA,NA,NA,NA,NA,NA,NA,NA,NA),)
 
 datatable(data)
 ```
@@ -141,7 +141,7 @@ datatable(data)
 ```{r}
 csv_file_path <- "output/backtesting_output/performance_metrics/pm_case_4.csv"
 
-data <- read.csv(file=csv_file_path, sep= ",",colClasses=c("NULL",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA),)
+data <- read.csv(file=csv_file_path, sep= ",",colClasses=c("NULL",NA,NA,NA,NA,NA,NA,NA,NA,NA),)
 
 datatable(data)
 ```
