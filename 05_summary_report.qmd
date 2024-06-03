@@ -1,20 +1,22 @@
 ---
-title: 05 summary Report
-date: 2024-06-02
-format:  
-  html:
-    theme: lumen
-    code-fold: true
-    code-summary: "See code"
+title: "05 Summary Report"
+date: 2024-06-03
+date-format: short
+title-block-banner: true
 execute:
   echo: false
+theme: flatly
+format:
+  html:
+    toc: true
+    toc-depth: 2
+---
 ---
 
-# Summary report
-
-Loading required packages
-
 ```{r}
+#| echo: false
+#| output: false
+
 packages <- c("xts", "DT", 'tidyverse', 'patchwork', "moments")
 
 for (package in packages) {
@@ -114,6 +116,10 @@ Below are listed functions we have defined for our research purposes.
 
 # Results comparison and final conclusions
 
+## Performance statistics
+
+### Base case
+
 ```{r}
 csv_file_path <- "output/backtesting_output/performance_metrics/pm_case_1.csv"
 
@@ -121,6 +127,9 @@ data <- read.csv(file=csv_file_path, sep= ",",colClasses=c("NULL",NA,NA,NA,NA,NA
 
 datatable(data)
 ```
+Obtained performance statistics of ARIMA(p,1,q) & ARIMA(p,1,q)-SGARCH(1,1).
+
+![Original performance statistics of ARIMA(p,1,q) & ARIMA(p,1,q)-SGARCH(1,1) from Vo, N., & Ślepaczuk, R. (2022)](report_files/case1t.png)
 
 ```{r}
 csv_file_path <- "output/backtesting_output/performance_metrics/pm_case_2.csv"
@@ -129,6 +138,9 @@ data <- read.csv(file=csv_file_path, sep= ",",colClasses=c("NULL",NA,NA,NA,NA,NA
 
 datatable(data)
 ```
+Obtained performance statistics of ARIMA(p,1,q) & ARIMA(p,1,q)-EGARCH(1,1).
+
+![Original performance statistics of ARIMA(p,1,q) & ARIMA(p,1,q)-EGARCH(1,1) from Vo, N., & Ślepaczuk, R. (2022)](report_files/case2t.png)
 
 ```{r}
 csv_file_path <- "output/backtesting_output/performance_metrics/pm_case_3.csv"
@@ -137,6 +149,9 @@ data <- read.csv(file=csv_file_path, sep= ",",colClasses=c("NULL",NA,NA,NA,NA,NA
 
 datatable(data)
 ```
+Obtained performance statistics of ARIMA(p,1,q)-SGARCH(1,1) with different window sizes.
+
+![Original performance statistics of ARIMA(p,1,q)-SGARCH(1,1) with different window sizes from Vo, N., & Ślepaczuk, R. (2022)](report_files/case3t.png)
 
 ```{r}
 csv_file_path <- "output/backtesting_output/performance_metrics/pm_case_4.csv"
@@ -145,8 +160,15 @@ data <- read.csv(file=csv_file_path, sep= ",",colClasses=c("NULL",NA,NA,NA,NA,NA
 
 datatable(data)
 ```
+Obtained performance statistics of all hybrid models with different distributions.
 
-```{r Case_1, fig.cap="Equity curves of ARIMA(p,1,q) & ARIMA(p,1,q)-SGARCH(1,1).", fig.width=12, fig.height=5, results='hide'}
+![Original performance statistics of all hybrid models with different distributions from Vo, N., & Ślepaczuk, R. (2022)](report_files/case4t.png)
+
+## Equity lines
+
+### Base case
+
+```{r Case_1, fig.cap="Obtained equity curves of ARIMA(p,1,q) & ARIMA(p,1,q)-SGARCH(1,1).", fig.width=12, fig.height=5, results='hide'}
 library(ggplot2) 
 
 df_case_strat_case_1 <- read.csv('./output/backtesting_output/equity_lines/case_1.csv')
@@ -176,7 +198,11 @@ plot_case_1
 
 ```
 
-```{r Case_2, fig.cap="Equity curves of ARIMA(p,1,q) & ARIMA(p,1,q)-EGARCH(1,1).", fig.width=12, fig.height=5, results='hide'}
+![Original equity curves of ARIMA(p,1,q) & ARIMA(p,1,q)-SGARCH(1,1) from Vo, N., & Ślepaczuk, R. (2022)](report_files/case1.png)
+
+### EGARCH vs SGARCH
+
+```{r Case_2, fig.cap="Obtained equity curves of ARIMA(p,1,q) & ARIMA(p,1,q)-EGARCH(1,1).", fig.width=12, fig.height=5, results='hide'}
 library(ggplot2) 
 
 df_case_strat_case_2 <- read.csv('./output/backtesting_output/equity_lines/case_2.csv')
@@ -207,7 +233,11 @@ plot_case_2
 
 ```
 
-```{r Case_3, fig.cap="Equity curves of ARIMA(p,1,q)-SGARCH(1,1) with different window sizes.", fig.width=12, fig.height=5, results='hide'}
+![Original equity curves of ARIMA(p,1,q) & ARIMA(p,1,q)-EGARCH(1,1) from Vo, N., & Ślepaczuk, R. (2022)](report_files/case2.png)
+
+### Different window sizes
+
+```{r Case_3, fig.cap="Obtained equity curves of ARIMA(p,1,q)-SGARCH(1,1) with different window sizes.", fig.width=12, fig.height=5, results='hide'}
 library(ggplot2) 
 
 df_case_strat_case_3 <- read.csv('./output/backtesting_output/equity_lines/case_3.csv')
@@ -239,7 +269,11 @@ plot_case_2
 
 ```
 
-```{r Case_4, fig.cap="Equity curves of all hybrid models with different distributions.", fig.width=12, fig.height=5, results='hide'}
+![Original equity curves of ARIMA(p,1,q)-SGARCH(1,1) with different window sizes from Vo, N., & Ślepaczuk, R. (2022)](report_files/case3.png)
+
+### Different distributions
+
+```{r Case_4, fig.cap="Obtained equity curves of all hybrid models with different distributions.", fig.width=12, fig.height=5, results='hide'}
 library(ggplot2) 
 
 df_case_strat_case_4 <- read.csv('./output/backtesting_output/equity_lines/case_4.csv')
@@ -272,6 +306,8 @@ plot_case_4
 
 ```
 
+![Original equity curves of all hybrid models with different distributions from Vo, N., & Ślepaczuk, R. (2022)](report_files/case4.png)
+
 # Problems encountered
 
 ## Time series order
@@ -297,3 +333,11 @@ While running multiple models, we encountered an issue with the rugarch package.
 ### Our solution
 
 To deal with this issue we used many tryCatch expressions, Having encountered predefined errors tryCatch would either skip the loop iteration or return NA, preventing the job from breaking completely. Additionally, we generated log files to track the errors.
+
+# References
+
+Vo, N., & Ślepaczuk, R. (2022). Applying hybrid ARIMA-SGARCH in algorithmic investment strategies on S&P500 index. Entropy, 24(2), 158.
+
+# Appendix
+
+![Behing the scenes of the model caluclation](report_files/calculations.png)

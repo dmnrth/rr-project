@@ -6,9 +6,8 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="dcterms.date" content="2024-06-02">
 
-<title>05 summary Report</title>
+<title>05 Summary Report</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -35,93 +34,89 @@ ul.task-list li input[type="checkbox"] {
 <link href="05_summary_report_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="05_summary_report_files/libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
 <script src="05_summary_report_files/libs/htmlwidgets-1.6.4/htmlwidgets.js"></script>
+
 <link href="05_summary_report_files/libs/datatables-css-0.0.0/datatables-crosstalk.css" rel="stylesheet">
-<script src="05_summary_report_files/libs/datatables-binding-0.32/datatables.js"></script>
+
+<script src="05_summary_report_files/libs/datatables-binding-0.33/datatables.js"></script>
+
 <script src="05_summary_report_files/libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+
 <link href="05_summary_report_files/libs/dt-core-1.13.6/css/jquery.dataTables.min.css" rel="stylesheet">
+
 <link href="05_summary_report_files/libs/dt-core-1.13.6/css/jquery.dataTables.extra.css" rel="stylesheet">
+
 <script src="05_summary_report_files/libs/dt-core-1.13.6/js/jquery.dataTables.min.js"></script>
+
 <link href="05_summary_report_files/libs/crosstalk-1.2.1/css/crosstalk.min.css" rel="stylesheet">
+
 <script src="05_summary_report_files/libs/crosstalk-1.2.1/js/crosstalk.min.js"></script>
+
 
 
 </head>
 
-<body class="fullcontent">
+<body>
 
-<div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
-
-<main class="content" id="quarto-document-content">
-
-<header id="title-block-header" class="quarto-title-block default">
-<div class="quarto-title">
-<h1 class="title">05 summary Report</h1>
-</div>
-
-
-
-<div class="quarto-title-meta">
-
+<header id="title-block-header" class="quarto-title-block default page-columns page-full">
+  <div class="quarto-title-banner page-columns page-full">
+    <div class="quarto-title column-body">
+      <h1 class="title">05 Summary Report</h1>
+                      </div>
+  </div>
     
-    <div>
-    <div class="quarto-title-meta-heading">Published</div>
-    <div class="quarto-title-meta-contents">
-      <p class="date">June 2, 2024</p>
+  
+  <div class="quarto-title-meta">
+
+      
+      <div>
+      <div class="quarto-title-meta-heading">Published</div>
+      <div class="quarto-title-meta-contents">
+        <p class="date">6/3/24</p>
+      </div>
     </div>
-  </div>
-  
     
-  </div>
+      
+    </div>
+    
   
+  </header><div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
+<div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+  <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul class="collapse">
+  <li><a href="#aim-of-the-study" id="toc-aim-of-the-study" class="nav-link active" data-scroll-target="#aim-of-the-study">Aim of the study</a></li>
+  <li><a href="#framework-of-our-research" id="toc-framework-of-our-research" class="nav-link" data-scroll-target="#framework-of-our-research">Framework of our research</a></li>
+  <li><a href="#data-collection-for-sp-500-index" id="toc-data-collection-for-sp-500-index" class="nav-link" data-scroll-target="#data-collection-for-sp-500-index">Data Collection for S&amp;P 500 Index</a></li>
+  <li><a href="#statistics" id="toc-statistics" class="nav-link" data-scroll-target="#statistics">Statistics</a>
+  <ul class="collapse">
+  <li><a href="#our-results" id="toc-our-results" class="nav-link" data-scroll-target="#our-results">Our results</a></li>
+  <li><a href="#results-from-the-article" id="toc-results-from-the-article" class="nav-link" data-scroll-target="#results-from-the-article">Results from the article</a></li>
+  </ul></li>
+  <li><a href="#model-estimation" id="toc-model-estimation" class="nav-link" data-scroll-target="#model-estimation">Model estimation</a></li>
+  <li><a href="#results-comparison-and-final-conclusions" id="toc-results-comparison-and-final-conclusions" class="nav-link" data-scroll-target="#results-comparison-and-final-conclusions">Results comparison and final conclusions</a>
+  <ul class="collapse">
+  <li><a href="#performance-statistics" id="toc-performance-statistics" class="nav-link" data-scroll-target="#performance-statistics">Performance statistics</a></li>
+  <li><a href="#equity-lines" id="toc-equity-lines" class="nav-link" data-scroll-target="#equity-lines">Equity lines</a></li>
+  </ul></li>
+  <li><a href="#problems-encountered" id="toc-problems-encountered" class="nav-link" data-scroll-target="#problems-encountered">Problems encountered</a>
+  <ul class="collapse">
+  <li><a href="#time-series-order" id="toc-time-series-order" class="nav-link" data-scroll-target="#time-series-order">Time series order</a></li>
+  <li><a href="#computational-efficiency" id="toc-computational-efficiency" class="nav-link" data-scroll-target="#computational-efficiency">Computational efficiency</a></li>
+  <li><a href="#convergence-problem" id="toc-convergence-problem" class="nav-link" data-scroll-target="#convergence-problem">Convergence problem</a></li>
+  </ul></li>
+  <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references">References</a></li>
+  <li><a href="#appendix" id="toc-appendix" class="nav-link" data-scroll-target="#appendix">Appendix</a></li>
+  </ul>
+</nav>
+</div>
+<main class="content quarto-banner-title-block" id="quarto-document-content">
 
 
-</header>
 
 
-<section id="summary-report" class="level1">
-<h1>Summary report</h1>
-<p>Loading required packages</p>
-<div class="cell">
-<div class="cell-output cell-output-stderr">
-<pre><code>Loading required package: xts</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Loading required package: zoo</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>
-Attaching package: 'zoo'</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>The following objects are masked from 'package:base':
 
-    as.Date, as.Date.numeric</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Loading required package: DT</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Loading required package: tidyverse</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
-✔ dplyr     1.1.4     ✔ readr     2.1.5
-✔ forcats   1.0.0     ✔ stringr   1.5.1
-✔ ggplot2   3.4.4     ✔ tibble    3.2.1
-✔ lubridate 1.9.3     ✔ tidyr     1.3.1
-✔ purrr     1.0.2     
-── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
-✖ dplyr::filter() masks stats::filter()
-✖ dplyr::first()  masks xts::first()
-✖ dplyr::lag()    masks stats::lag()
-✖ dplyr::last()   masks xts::last()
-ℹ Use the conflicted package (&lt;http://conflicted.r-lib.org/&gt;) to force all conflicts to become errors
-Loading required package: patchwork
-
-Loading required package: moments</code></pre>
-</div>
-</div>
-</section>
+<hr>
 <section id="aim-of-the-study" class="level1">
 <h1>Aim of the study</h1>
 <p>We based our research on the article <strong>Applying Hybrid ARIMA-SGARCH in Algorithmic Investment Strategies on S&amp;P500 Index</strong> by Nguyen Vo and Robert Slepaczuk.</p>
@@ -141,8 +136,8 @@ Loading required package: moments</code></pre>
 <h2 class="anchored" data-anchor-id="our-results">Our results</h2>
 <div class="cell">
 <div class="cell-output-display">
-<div class="datatables html-widget html-fill-item" id="htmlwidget-2c600bb6963c6a9a2ec5" style="width:100%;height:auto;"></div>
-<script type="application/json" data-for="htmlwidget-2c600bb6963c6a9a2ec5">{"x":{"filter":"none","vertical":false,"data":[["1","2","3","4","5","6","7","8","9","10"],["Min","Quartile_1st","Median","Mean","Quartile_3rd","Max","Skew","Kurtosis","Standard_error","Standard_deviation"],[676.53,1151.5349,1360.955,1574.6801,1986.2225,3240.02,0.9886,-0.07149999999999999,8.2559,585.5315000000001],[-0.09470000000000001,-0.0047,0.0005,0.0002,0.0057,0.1096,-0.2295,8.6425,0.0002,0.0119]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>statistic<\/th>\n      <th>SP500_prices_adj<\/th>\n      <th>SP500_Log_Returns<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"columnDefs":[{"targets":2,"render":"function(data, type, row, meta) {\n    return type !== 'display' ? data : DTWidget.formatRound(data, 4, 3, \",\", \".\", null);\n  }"},{"targets":3,"render":"function(data, type, row, meta) {\n    return type !== 'display' ? data : DTWidget.formatRound(data, 4, 3, \",\", \".\", null);\n  }"},{"className":"dt-right","targets":[2,3]},{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"statistic","targets":1},{"name":"SP500_prices_adj","targets":2},{"name":"SP500_Log_Returns","targets":3}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":["options.columnDefs.0.render","options.columnDefs.1.render"],"jsHooks":[]}</script>
+<div class="datatables html-widget html-fill-item" id="htmlwidget-b4d7c84cd8a21cc84444" style="width:100%;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-b4d7c84cd8a21cc84444">{"x":{"filter":"none","vertical":false,"data":[["1","2","3","4","5","6","7","8","9","10"],["Min","Quartile_1st","Median","Mean","Quartile_3rd","Max","Skew","Kurtosis","Standard_error","Standard_deviation"],[676.53,1151.5349,1360.955,1574.6801,1986.2225,3240.02,0.9886,-0.07149999999999999,8.2559,585.5315000000001],[-0.09470000000000001,-0.0047,0.0005,0.0002,0.0057,0.1096,-0.2295,8.6425,0.0002,0.0119]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>statistic<\/th>\n      <th>SP500_prices_adj<\/th>\n      <th>SP500_Log_Returns<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"columnDefs":[{"targets":2,"render":"function(data, type, row, meta) {\n    return type !== 'display' ? data : DTWidget.formatRound(data, 4, 3, \",\", \".\", null);\n  }"},{"targets":3,"render":"function(data, type, row, meta) {\n    return type !== 'display' ? data : DTWidget.formatRound(data, 4, 3, \",\", \".\", null);\n  }"},{"className":"dt-right","targets":[2,3]},{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"statistic","targets":1},{"name":"SP500_prices_adj","targets":2},{"name":"SP500_Log_Returns","targets":3}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":["options.columnDefs.0.render","options.columnDefs.1.render"],"jsHooks":[]}</script>
 </div>
 </div>
 </section>
@@ -150,8 +145,8 @@ Loading required package: moments</code></pre>
 <h2 class="anchored" data-anchor-id="results-from-the-article">Results from the article</h2>
 <div class="cell">
 <div class="cell-output-display">
-<div class="datatables html-widget html-fill-item" id="htmlwidget-d4c3f905ccffcc7c2904" style="width:100%;height:auto;"></div>
-<script type="application/json" data-for="htmlwidget-d4c3f905ccffcc7c2904">{"x":{"filter":"none","vertical":false,"data":[["1","2","3","4","5","6","7","8","9","10"],["Min","1st Quantile","Median","Arithmetic Mean","3rd Quantile","Max","Skew","Kurtosis","Standard Error Mean (se)","Standard Deviation (sd)"],[676.53,1151.5349,1360.955,1574.6801,1986.2225,3240.02,0.9886,-0.07149999999999999,8.2559,585.5315000000001],[-0.09470000000000001,-0.0047,0.0005,0.0002,0.0057,0.1096,-0.2295,8.6448,0.0002,0.0119]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>Descriptive.Statistics<\/th>\n      <th>S.P500.Original.Prices<\/th>\n      <th>Log.Returns<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"columnDefs":[{"className":"dt-right","targets":[2,3]},{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"Descriptive.Statistics","targets":1},{"name":"S.P500.Original.Prices","targets":2},{"name":"Log.Returns","targets":3}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
+<div class="datatables html-widget html-fill-item" id="htmlwidget-02e1504df65a2bbbf085" style="width:100%;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-02e1504df65a2bbbf085">{"x":{"filter":"none","vertical":false,"data":[["1","2","3","4","5","6","7","8","9","10"],["Min","1st Quantile","Median","Arithmetic Mean","3rd Quantile","Max","Skew","Kurtosis","Standard Error Mean (se)","Standard Deviation (sd)"],[676.53,1151.5349,1360.955,1574.6801,1986.2225,3240.02,0.9886,-0.07149999999999999,8.2559,585.5315000000001],[-0.09470000000000001,-0.0047,0.0005,0.0002,0.0057,0.1096,-0.2295,8.6448,0.0002,0.0119]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>Descriptive.Statistics<\/th>\n      <th>S.P500.Original.Prices<\/th>\n      <th>Log.Returns<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"columnDefs":[{"className":"dt-right","targets":[2,3]},{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"Descriptive.Statistics","targets":1},{"name":"S.P500.Original.Prices","targets":2},{"name":"Log.Returns","targets":3}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
 </div>
 </div>
 <section id="conclusion" class="level3">
@@ -172,50 +167,106 @@ Loading required package: moments</code></pre>
 </section>
 <section id="results-comparison-and-final-conclusions" class="level1">
 <h1>Results comparison and final conclusions</h1>
+<section id="performance-statistics" class="level2">
+<h2 class="anchored" data-anchor-id="performance-statistics">Performance statistics</h2>
+<section id="base-case" class="level3">
+<h3 class="anchored" data-anchor-id="base-case">Base case</h3>
 <div class="cell">
 <div class="cell-output-display">
-<div class="datatables html-widget html-fill-item" id="htmlwidget-a737f2dafe77a7ef3a94" style="width:100%;height:auto;"></div>
-<script type="application/json" data-for="htmlwidget-a737f2dafe77a7ef3a94">{"x":{"filter":"none","vertical":false,"data":[["1","2","3"],["S&amp;P 500","arima_base_case","arima-garch_base_case"],[null,0.00773,0.00757],[null,0.000147,0.000141],[null,0.0121,0.0119],[null,null,null],[6.55,-3.61,3.85],[18.77,18.78,18.78],[55.76,63.1,53.85],[34.91,-19.25,20.51],[4.1,-1.1,1.47]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>X.1<\/th>\n      <th>MAE<\/th>\n      <th>MSE<\/th>\n      <th>RMSE<\/th>\n      <th>MAPE<\/th>\n      <th>ARC...<\/th>\n      <th>ASD...<\/th>\n      <th>MD<\/th>\n      <th>IR....<\/th>\n      <th>IR.....<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"columnDefs":[{"className":"dt-right","targets":[2,3,4,5,6,7,8,9,10]},{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"X.1","targets":1},{"name":"MAE","targets":2},{"name":"MSE","targets":3},{"name":"RMSE","targets":4},{"name":"MAPE","targets":5},{"name":"ARC...","targets":6},{"name":"ASD...","targets":7},{"name":"MD","targets":8},{"name":"IR....","targets":9},{"name":"IR.....","targets":10}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
+<div class="datatables html-widget html-fill-item" id="htmlwidget-5bcf500ae6df6ff84af9" style="width:100%;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-5bcf500ae6df6ff84af9">{"x":{"filter":"none","vertical":false,"data":[["1","2","3"],["S&amp;P 500","arima_base_case","arima-garch_base_case"],[null,0.00773,0.00757],[null,0.000147,0.000141],[null,0.0121,0.0119],[null,null,null],[6.55,-3.61,3.85],[18.77,18.78,18.78],[55.76,63.1,53.85],[34.91,-19.25,20.51],[4.1,-1.1,1.47]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>X.1<\/th>\n      <th>MAE<\/th>\n      <th>MSE<\/th>\n      <th>RMSE<\/th>\n      <th>MAPE<\/th>\n      <th>ARC...<\/th>\n      <th>ASD...<\/th>\n      <th>MD<\/th>\n      <th>IR....<\/th>\n      <th>IR.....<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"columnDefs":[{"className":"dt-right","targets":[2,3,4,5,6,7,8,9,10]},{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"X.1","targets":1},{"name":"MAE","targets":2},{"name":"MSE","targets":3},{"name":"RMSE","targets":4},{"name":"MAPE","targets":5},{"name":"ARC...","targets":6},{"name":"ASD...","targets":7},{"name":"MD","targets":8},{"name":"IR....","targets":9},{"name":"IR.....","targets":10}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
 </div>
 </div>
-<div class="cell">
-<div class="cell-output-display">
-<div class="datatables html-widget html-fill-item" id="htmlwidget-e459bd537468e1f997c7" style="width:100%;height:auto;"></div>
-<script type="application/json" data-for="htmlwidget-e459bd537468e1f997c7">{"x":{"filter":"none","vertical":false,"data":[["1","2","3","4"],["S&amp;P 500","arima_base_case","arima-garch_base_case","arima-egarch_ged_1000"],[null,0.00773,0.00757,0.00758],[null,0.000147,0.000141,0.000142],[null,0.0121,0.0119,0.0119],[null,null,null,null],[6.55,-3.61,3.85,2.39],[18.77,18.78,18.78,18.78],[55.76,63.1,53.85,42.49],[34.91,-19.25,20.51,12.74],[4.1,-1.1,1.47,0.72]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>X.1<\/th>\n      <th>MAE<\/th>\n      <th>MSE<\/th>\n      <th>RMSE<\/th>\n      <th>MAPE<\/th>\n      <th>ARC...<\/th>\n      <th>ASD...<\/th>\n      <th>MD<\/th>\n      <th>IR....<\/th>\n      <th>IR.....<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"columnDefs":[{"className":"dt-right","targets":[2,3,4,5,6,7,8,9,10]},{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"X.1","targets":1},{"name":"MAE","targets":2},{"name":"MSE","targets":3},{"name":"RMSE","targets":4},{"name":"MAPE","targets":5},{"name":"ARC...","targets":6},{"name":"ASD...","targets":7},{"name":"MD","targets":8},{"name":"IR....","targets":9},{"name":"IR.....","targets":10}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
-</div>
-</div>
-<div class="cell">
-<div class="cell-output-display">
-<div class="datatables html-widget html-fill-item" id="htmlwidget-4b1f807ece873d281c27" style="width:100%;height:auto;"></div>
-<script type="application/json" data-for="htmlwidget-4b1f807ece873d281c27">{"x":{"filter":"none","vertical":false,"data":[["1","2","3","4","5"],["S&amp;P 500","arima_base_case","arima-sgarch_ged_500","arima-garch_base_case","arima-sgarch_ged_1500"],[null,0.00773,0.0158,0.00757,0.172],[null,0.000147,0.00826,0.000141,0.165],[null,0.0121,0.09089999999999999,0.0119,0.407],[null,null,null,null,null],[6.55,-3.61,0.72,3.85,11.98],[18.77,18.78,24.36,18.78,478.67],[55.76,63.1,43.4,53.85,79.22],[34.91,-19.25,2.95,20.51,2.5]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>X.1<\/th>\n      <th>MAE<\/th>\n      <th>MSE<\/th>\n      <th>RMSE<\/th>\n      <th>MAPE<\/th>\n      <th>ARC...<\/th>\n      <th>ASD...<\/th>\n      <th>MD<\/th>\n      <th>IR....<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"columnDefs":[{"className":"dt-right","targets":[2,3,4,5,6,7,8,9]},{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"X.1","targets":1},{"name":"MAE","targets":2},{"name":"MSE","targets":3},{"name":"RMSE","targets":4},{"name":"MAPE","targets":5},{"name":"ARC...","targets":6},{"name":"ASD...","targets":7},{"name":"MD","targets":8},{"name":"IR....","targets":9}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
-</div>
+<p>Obtained performance statistics of ARIMA(p,1,q) &amp; ARIMA(p,1,q)-SGARCH(1,1).</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="report_files/case1t.png" class="img-fluid figure-img"></p>
+<figcaption>Original performance statistics of ARIMA(p,1,q) &amp; ARIMA(p,1,q)-SGARCH(1,1) from Vo, N., &amp; Ślepaczuk, R. (2022)</figcaption>
+</figure>
 </div>
 <div class="cell">
 <div class="cell-output-display">
-<div class="datatables html-widget html-fill-item" id="htmlwidget-a8043b710a2cf3080306" style="width:100%;height:auto;"></div>
-<script type="application/json" data-for="htmlwidget-a8043b710a2cf3080306">{"x":{"filter":"none","vertical":false,"data":[["1","2","3","4","5","6"],["S&amp;P 500","arima_base_case","arima-garch_base_case","arima-sgarch_snorm_1000","arima-sgarch_sstd_1000","arima-sgarch_sged_1000"],[null,0.00773,0.00757,0.0306,0.0259,0.0236],[null,0.000147,0.000141,0.0235,0.0187,0.0164],[null,0.0121,0.0119,0.153,0.137,0.128],[null,null,null,null,null,null],[6.55,-3.61,3.85,3.76,12.91,9.4],[18.77,18.78,18.78,116.52,454.4,414.31],[55.76,63.1,53.85,44.68,79.29000000000001,79.34],[34.91,-19.25,20.51,3.23,2.84,2.27]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>X.1<\/th>\n      <th>MAE<\/th>\n      <th>MSE<\/th>\n      <th>RMSE<\/th>\n      <th>MAPE<\/th>\n      <th>ARC...<\/th>\n      <th>ASD...<\/th>\n      <th>MD<\/th>\n      <th>IR....<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"columnDefs":[{"className":"dt-right","targets":[2,3,4,5,6,7,8,9]},{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"X.1","targets":1},{"name":"MAE","targets":2},{"name":"MSE","targets":3},{"name":"RMSE","targets":4},{"name":"MAPE","targets":5},{"name":"ARC...","targets":6},{"name":"ASD...","targets":7},{"name":"MD","targets":8},{"name":"IR....","targets":9}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
+<div class="datatables html-widget html-fill-item" id="htmlwidget-2803a1764df219deb50c" style="width:100%;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-2803a1764df219deb50c">{"x":{"filter":"none","vertical":false,"data":[["1","2","3","4"],["S&amp;P 500","arima_base_case","arima-garch_base_case","arima-egarch_ged_1000"],[null,0.00773,0.00757,0.00758],[null,0.000147,0.000141,0.000142],[null,0.0121,0.0119,0.0119],[null,null,null,null],[6.55,-3.61,3.85,2.39],[18.77,18.78,18.78,18.78],[55.76,63.1,53.85,42.49],[34.91,-19.25,20.51,12.74],[4.1,-1.1,1.47,0.72]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>X.1<\/th>\n      <th>MAE<\/th>\n      <th>MSE<\/th>\n      <th>RMSE<\/th>\n      <th>MAPE<\/th>\n      <th>ARC...<\/th>\n      <th>ASD...<\/th>\n      <th>MD<\/th>\n      <th>IR....<\/th>\n      <th>IR.....<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"columnDefs":[{"className":"dt-right","targets":[2,3,4,5,6,7,8,9,10]},{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"X.1","targets":1},{"name":"MAE","targets":2},{"name":"MSE","targets":3},{"name":"RMSE","targets":4},{"name":"MAPE","targets":5},{"name":"ARC...","targets":6},{"name":"ASD...","targets":7},{"name":"MD","targets":8},{"name":"IR....","targets":9},{"name":"IR.....","targets":10}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
 </div>
 </div>
+<p>Obtained performance statistics of ARIMA(p,1,q) &amp; ARIMA(p,1,q)-EGARCH(1,1).</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="report_files/case2t.png" class="img-fluid figure-img"></p>
+<figcaption>Original performance statistics of ARIMA(p,1,q) &amp; ARIMA(p,1,q)-EGARCH(1,1) from Vo, N., &amp; Ślepaczuk, R. (2022)</figcaption>
+</figure>
+</div>
+<div class="cell">
+<div class="cell-output-display">
+<div class="datatables html-widget html-fill-item" id="htmlwidget-a9bb4eb8a4d6714fb6f4" style="width:100%;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-a9bb4eb8a4d6714fb6f4">{"x":{"filter":"none","vertical":false,"data":[["1","2","3","4","5"],["S&amp;P 500","arima_base_case","arima-sgarch_ged_500","arima-garch_base_case","arima-sgarch_ged_1500"],[null,0.00773,0.0158,0.00757,0.172],[null,0.000147,0.00826,0.000141,0.165],[null,0.0121,0.09089999999999999,0.0119,0.407],[null,null,null,null,null],[6.55,-3.61,0.72,3.85,11.98],[18.77,18.78,24.36,18.78,478.67],[55.76,63.1,43.4,53.85,79.22],[34.91,-19.25,2.95,20.51,2.5]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>X.1<\/th>\n      <th>MAE<\/th>\n      <th>MSE<\/th>\n      <th>RMSE<\/th>\n      <th>MAPE<\/th>\n      <th>ARC...<\/th>\n      <th>ASD...<\/th>\n      <th>MD<\/th>\n      <th>IR....<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"columnDefs":[{"className":"dt-right","targets":[2,3,4,5,6,7,8,9]},{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"X.1","targets":1},{"name":"MAE","targets":2},{"name":"MSE","targets":3},{"name":"RMSE","targets":4},{"name":"MAPE","targets":5},{"name":"ARC...","targets":6},{"name":"ASD...","targets":7},{"name":"MD","targets":8},{"name":"IR....","targets":9}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
+</div>
+</div>
+<p>Obtained performance statistics of ARIMA(p,1,q)-SGARCH(1,1) with different window sizes.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="report_files/case3t.png" class="img-fluid figure-img"></p>
+<figcaption>Original performance statistics of ARIMA(p,1,q)-SGARCH(1,1) with different window sizes from Vo, N., &amp; Ślepaczuk, R. (2022)</figcaption>
+</figure>
+</div>
+<div class="cell">
+<div class="cell-output-display">
+<div class="datatables html-widget html-fill-item" id="htmlwidget-49a45a7d71c0bae42e9c" style="width:100%;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-49a45a7d71c0bae42e9c">{"x":{"filter":"none","vertical":false,"data":[["1","2","3","4","5","6"],["S&amp;P 500","arima_base_case","arima-garch_base_case","arima-sgarch_snorm_1000","arima-sgarch_sstd_1000","arima-sgarch_sged_1000"],[null,0.00773,0.00757,0.0306,0.0259,0.0236],[null,0.000147,0.000141,0.0235,0.0187,0.0164],[null,0.0121,0.0119,0.153,0.137,0.128],[null,null,null,null,null,null],[6.55,-3.61,3.85,3.76,12.91,9.4],[18.77,18.78,18.78,116.52,454.4,414.31],[55.76,63.1,53.85,44.68,79.29000000000001,79.34],[34.91,-19.25,20.51,3.23,2.84,2.27]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>X.1<\/th>\n      <th>MAE<\/th>\n      <th>MSE<\/th>\n      <th>RMSE<\/th>\n      <th>MAPE<\/th>\n      <th>ARC...<\/th>\n      <th>ASD...<\/th>\n      <th>MD<\/th>\n      <th>IR....<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"columnDefs":[{"className":"dt-right","targets":[2,3,4,5,6,7,8,9]},{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"X.1","targets":1},{"name":"MAE","targets":2},{"name":"MSE","targets":3},{"name":"RMSE","targets":4},{"name":"MAPE","targets":5},{"name":"ARC...","targets":6},{"name":"ASD...","targets":7},{"name":"MD","targets":8},{"name":"IR....","targets":9}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
+</div>
+</div>
+<p>Obtained performance statistics of all hybrid models with different distributions.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="report_files/case4t.png" class="img-fluid figure-img"></p>
+<figcaption>Original performance statistics of all hybrid models with different distributions from Vo, N., &amp; Ślepaczuk, R. (2022)</figcaption>
+</figure>
+</div>
+</section>
+</section>
+<section id="equity-lines" class="level2">
+<h2 class="anchored" data-anchor-id="equity-lines">Equity lines</h2>
+<section id="base-case-1" class="level3">
+<h3 class="anchored" data-anchor-id="base-case-1">Base case</h3>
 <div class="cell">
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="05_summary_report_files/figure-html/Case_1-1.png" class="img-fluid figure-img" width="1152"></p>
-<figcaption>Equity curves of ARIMA(p,1,q) &amp; ARIMA(p,1,q)-SGARCH(1,1).</figcaption>
+<figcaption>Obtained equity curves of ARIMA(p,1,q) &amp; ARIMA(p,1,q)-SGARCH(1,1).</figcaption>
 </figure>
 </div>
 </div>
 </div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="report_files/case1.png" class="img-fluid figure-img"></p>
+<figcaption>Original equity curves of ARIMA(p,1,q) &amp; ARIMA(p,1,q)-SGARCH(1,1) from Vo, N., &amp; Ślepaczuk, R. (2022)</figcaption>
+</figure>
+</div>
+</section>
+<section id="egarch-vs-sgarch" class="level3">
+<h3 class="anchored" data-anchor-id="egarch-vs-sgarch">EGARCH vs SGARCH</h3>
 <div class="cell">
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="05_summary_report_files/figure-html/Case_2-1.png" class="img-fluid figure-img" width="1152"></p>
-<figcaption>Equity curves of ARIMA(p,1,q) &amp; ARIMA(p,1,q)-EGARCH(1,1).</figcaption>
+<figcaption>Obtained equity curves of ARIMA(p,1,q) &amp; ARIMA(p,1,q)-EGARCH(1,1).</figcaption>
 </figure>
 </div>
 </div>
 </div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="report_files/case2.png" class="img-fluid figure-img"></p>
+<figcaption>Original equity curves of ARIMA(p,1,q) &amp; ARIMA(p,1,q)-EGARCH(1,1) from Vo, N., &amp; Ślepaczuk, R. (2022)</figcaption>
+</figure>
+</div>
+</section>
+<section id="different-window-sizes" class="level3">
+<h3 class="anchored" data-anchor-id="different-window-sizes">Different window sizes</h3>
 <div class="cell">
 <div class="cell-output cell-output-stderr">
 <pre><code>Warning: Removed 490 rows containing missing values (`geom_line()`).</code></pre>
@@ -224,21 +275,38 @@ Loading required package: moments</code></pre>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="05_summary_report_files/figure-html/Case_3-1.png" class="img-fluid figure-img" width="1152"></p>
-<figcaption>Equity curves of ARIMA(p,1,q)-SGARCH(1,1) with different window sizes.</figcaption>
+<figcaption>Obtained equity curves of ARIMA(p,1,q)-SGARCH(1,1) with different window sizes.</figcaption>
 </figure>
 </div>
 </div>
 </div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="report_files/case3.png" class="img-fluid figure-img"></p>
+<figcaption>Original equity curves of ARIMA(p,1,q)-SGARCH(1,1) with different window sizes from Vo, N., &amp; Ślepaczuk, R. (2022)</figcaption>
+</figure>
+</div>
+</section>
+<section id="different-distributions" class="level3">
+<h3 class="anchored" data-anchor-id="different-distributions">Different distributions</h3>
 <div class="cell">
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="05_summary_report_files/figure-html/Case_4-1.png" class="img-fluid figure-img" width="1152"></p>
-<figcaption>Equity curves of all hybrid models with different distributions.</figcaption>
+<figcaption>Obtained equity curves of all hybrid models with different distributions.</figcaption>
 </figure>
 </div>
 </div>
 </div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="report_files/case4.png" class="img-fluid figure-img"></p>
+<figcaption>Original equity curves of all hybrid models with different distributions from Vo, N., &amp; Ślepaczuk, R. (2022)</figcaption>
+</figure>
+</div>
+</section>
+</section>
 </section>
 <section id="problems-encountered" class="level1">
 <h1>Problems encountered</h1>
@@ -266,6 +334,19 @@ Loading required package: moments</code></pre>
 <p>To deal with this issue we used many tryCatch expressions, Having encountered predefined errors tryCatch would either skip the loop iteration or return NA, preventing the job from breaking completely. Additionally, we generated log files to track the errors.</p>
 </section>
 </section>
+</section>
+<section id="references" class="level1">
+<h1>References</h1>
+<p>Vo, N., &amp; Ślepaczuk, R. (2022). Applying hybrid ARIMA-SGARCH in algorithmic investment strategies on S&amp;P500 index. Entropy, 24(2), 158.</p>
+</section>
+<section id="appendix" class="level1">
+<h1>Appendix</h1>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="report_files/calculations.png" class="img-fluid figure-img"></p>
+<figcaption>Behing the scenes of the model caluclation</figcaption>
+</figure>
+</div>
 </section>
 
 </main>
